@@ -9,4 +9,6 @@
     <color name="white">#FFFFFFFF</color>
     <color name="blue">#251C45</color>
     <color name="tumyeongsaeg">#00FFFFFF</color>
+    <color name="whitegray">#E5E5E5</color>
+
 </resources>
