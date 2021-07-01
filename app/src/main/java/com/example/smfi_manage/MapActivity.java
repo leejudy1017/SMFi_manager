@@ -341,6 +341,20 @@ public class MapActivity  extends FragmentActivity implements OnMapReadyCallback
                     @Override
                     public void onClick(View v) {
                         marker.remove();
+
+                        if(marker.getTitle().equals(spot1_title.getText().toString())){
+                            spot1_title.setText("SPOT 1");
+                            spot1_latitude="";
+                            spot1_longitude="";
+                            spot1_detail.setText("");
+                        }
+                        if(marker.getTitle().equals(spot2_title.getText().toString())){
+                            spot2_title.setText("SPOT 2");
+                            spot2_latitude="";
+                            spot2_longitude="";
+                            spot2_detail.setText("");
+                        }
+
                         dialog.dismiss();
                     }
                 });
@@ -380,10 +394,17 @@ public class MapActivity  extends FragmentActivity implements OnMapReadyCallback
         spotBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String info = marker.getSnippet();
-                String title = marker.getTitle();
-                selectSpot(info,title);
-                dialog.dismiss();
+
+                if(marker.getTitle().equals(spot1_title.getText().toString()) || marker.getTitle().equals(spot2_title.getText().toString())){
+                    Toast.makeText(MapActivity.this,"이미 SPOT 으로 설정된 마커입니다.",Toast.LENGTH_LONG).show();
+                    dialog.dismiss();
+                }
+                else{
+                    String info = marker.getSnippet();
+                    String title = marker.getTitle();
+                    selectSpot(info,title);
+                    dialog.dismiss();
+                }
             }
         });
 
