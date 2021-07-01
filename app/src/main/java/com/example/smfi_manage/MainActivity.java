@@ -7,8 +7,10 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.fragment.app.Fragment;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -22,6 +24,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.SearchView;
@@ -88,6 +91,10 @@ public class MainActivity extends AppCompatActivity
 
     SearchView searchView;
     TextView currentLocation;
+    TextView distance;
+    double mAltitude;
+    double mLatitude;
+    EditText height;
 
     private View mLayout;  // Snackbar 사용하기 위해서는 View가 필요합니다.
     // (참고로 Toast에서는 Context가 필요했습니다.)
@@ -103,10 +110,19 @@ public class MainActivity extends AppCompatActivity
                 WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
         setContentView(R.layout.activity_main);
+        height = findViewById(R.id.height);
+        searchView = findViewById(R.id.searchView);
+
+        View map = findViewById(R.id.map);
+        map.setOnClickListener(v -> {
+            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(height.getWindowToken(), 0);
+            imm.hideSoftInputFromWindow(searchView.getWindowToken(), 0);
+        });
 
         mLayout = findViewById(R.id.layout_main);
         currentLocation = findViewById(R.id.currentLocation);
-        searchView = findViewById(R.id.searchView);
+        distance = findViewById(R.id.distance);
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -153,6 +169,17 @@ public class MainActivity extends AppCompatActivity
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
+
+
+    }
+
+    public void onClick(View v){
+        switch (v.getId()){
+            case R.id.confirmBtn:
+                Log.i("안테나 높이: ",height.getText()+"");
+                height.setFocusable(false);
+                Toast.makeText(getApplicationContext(),"안테나 높이가 "+height+"으로 설정되었습니다.",Toast.LENGTH_SHORT).show();
+        }
     }
 
     // 구글맵 주소 검색 메서드
@@ -171,11 +198,37 @@ public class MainActivity extends AppCompatActivity
 
     }
 
+    public static double distanceInKilometerByHaversine(double lat1, double lon1, double lat2, double lon2) {
+
+        double EARTH_R = 6371000.0;
+        double Rad = Math.PI/180;
+        double radLat1 = Rad*lat1;
+        double radLat2 = Rad*lat2;
+        double radDist = Rad*(lon1-lon2);
+
+        double distance = Math.sin(radLat1)*Math.sin(radLat2);
+        distance = distance + Math.cos(radLat1) * Math.cos(radLat2)*Math.cos(radDist);
+        double ret = EARTH_R*Math.acos(distance);
+
+        double dist = Math.round(Math.round(ret)/1000);
+        return dist/1000;
+    }
+
+    private static double deg2rad(double deg){
+        return(deg*Math.PI / 180.0);
+    }
+
+    private static double rad2reg(double rad){
+        return(rad*180/Math.PI);
+    }
+
     @Override
     public void onMapReady(final GoogleMap googleMap) {
         Log.d(TAG, "onMapReady :");
 
         mMap = googleMap;
+
+
 
         mMap.setOnMapLongClickListener(new GoogleMap.OnMapLongClickListener(){
 
@@ -195,6 +248,8 @@ public class MainActivity extends AppCompatActivity
                         String string_placeTitle = editText_placeTitle.getText().toString();
 
                         String markerSnippet = "위도:" + String.valueOf(latLng.latitude) + " 경도:" + String.valueOf(latLng.longitude);
+                        mLatitude = latLng.latitude;
+                        mAltitude=  latLng.longitude;
 
                         //맵을 클릭시 현재 위치에 마커 추가
                         MarkerOptions markerOptions = new MarkerOptions();
@@ -208,6 +263,7 @@ public class MainActivity extends AppCompatActivity
                         addedMarker = mMap.addMarker(markerOptions);
 
                         dialog.dismiss();
+                        mMap.animateCamera(CameraUpdateFactory.newLatLng(latLng)); //해당위치로 카메라 이동시키기.
                     }
                 });
 
@@ -215,6 +271,7 @@ public class MainActivity extends AppCompatActivity
 
             }
         });
+
 
         //런타임 퍼미션 요청 대화상자나 GPS 활성 요청 대화상자 보이기전에
         //지도의 초기위치를 서울로 이동
@@ -313,10 +370,16 @@ public class MainActivity extends AppCompatActivity
 
                 String markerTitle = getCurrentAddress(currentPosition);
                 String markerSnippet = "위도:" + String.valueOf(location.getLatitude()) + " 경도:" + String.valueOf(location.getLongitude())+ " 고도:" + String.valueOf(location.getAltitude());
+                String markingPoint = "위도:" + mLatitude + " 경도:" + mAltitude;
+                double dist = distanceInKilometerByHaversine(location.getLatitude(),location.getAltitude(),mLatitude,mAltitude);
 
                 Log.d(TAG, "onLocationResult : " + markerSnippet);
+                Log.d(TAG, "onMarkingResult : " + markingPoint);
+                Log.d(TAG, "onLocationDistance : " + dist);
 
-                currentLocation.setText("위도: " + String.valueOf(location.getLatitude()) + "  경도: " + String.valueOf(location.getLongitude())+ "  고도: " + String.valueOf(location.getAltitude()));
+                currentLocation.setText("현재위치\n"+"위도: " + String.valueOf(location.getLatitude()) + "  경도: " + String.valueOf(location.getLongitude())+ "  고도: " + String.valueOf(location.getAltitude()));
+                //distance 계산
+                distance.setText("거리: "+dist+" Km");
 
                 //현재 위치에 마커 생성하고 이동
                 setCurrentLocation(location, markerTitle, markerSnippet);
@@ -462,7 +525,7 @@ public class MainActivity extends AppCompatActivity
 
 
         //red marking
-        //currentMarker = mMap.addMarker(markerOptions);
+        currentMarker = mMap.addMarker(markerOptions);
 
         CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLng(currentLatLng);
         mMap.moveCamera(cameraUpdate);
@@ -489,7 +552,7 @@ public class MainActivity extends AppCompatActivity
         markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
         currentMarker = mMap.addMarker(markerOptions);
 
-        CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(DEFAULT_LOCATION, 15);
+        CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(DEFAULT_LOCATION, 20);
         mMap.moveCamera(cameraUpdate);
 
     }

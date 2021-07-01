@@ -15,15 +15,6 @@
         android:layout_marginBottom="50dp"
 
         android:gravity="center_horizontal|center_vertical"
-        tools:ignore="MissingConstraints">
-
-        <ImageView
-            android:id="@+id/imageView"
-            android:layout_width="218dp"
-            android:layout_height="158dp"
-            android:layout_marginBottom="50dp"
-            android:src="@drawable/logo" />
-
-    </LinearLayout>
+        tools:ignore="MissingConstraints"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/textView_dialog_deleteText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="27dp"
+        android:layout_marginLeft="125dp"
+        android:gravity="center_horizontal"
+        android:text="삭제하시겠습니까 ?" />
+
+
+    <Button
+        android:id="@+id/button_dialog_deleteBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="87dp"
+        android:layout_marginTop="70dp"
+        android:layout_marginBottom="16dp"
+        android:backgroundTint="@color/blue"
+        android:textColor="@color/white"
+        android:text="삭제" />
+
+    <Button
+        android:id="@+id/button_dialog_Btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="187dp"
+        android:layout_marginTop="70dp"
+        android:layout_marginBottom="16dp"
+        android:backgroundTint="@color/blue"
+        android:text="취소"
+        android:textColor="@color/white" />
+
+</RelativeLayout>

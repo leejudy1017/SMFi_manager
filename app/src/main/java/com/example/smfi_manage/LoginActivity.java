@@ -53,7 +53,7 @@ public class LoginActivity extends AppCompatActivity {
                 Log.i("email",email.getText().toString());
                 Log.i("pwd",pwd.getText().toString());
 
-                Intent intent = new Intent(getApplication(),MainActivity.class);
+                Intent intent = new Intent(getApplication(),MapActivity.class);
                 startActivity(intent);
                 finish();
                 //customProgressDialog.show();

@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/layout_main"
+    android:orientation="vertical"
+    android:background="@color/white"
+    tools:context=".MapActivity" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1.4"
+        android:id="@+id/search_bar"
+        android:background="@color/whitegray"
+        tools:context=".MapsActivity"
+        android:orientation="horizontal">
+        <SearchView
+            android:id="@+id/searchView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="10dp"
+            android:layout_gravity="center"
+            android:iconifiedByDefault="false"
+            android:queryHint="검색어를 입력하세요"
+            android:background="@color/white"
+            />
+
+    </LinearLayout>
+
+    <fragment
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="9.5"
+        android:id="@+id/map"
+        tools:context=".MapsActivity"
+        android:name="com.google.android.gms.maps.SupportMapFragment" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="3"
+        android:scaleType="centerInside"
+        android:background="@color/whitegray"
+        android:scrollbars="vertical"
+        android:orientation="horizontal" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:scaleType="centerInside"
+            android:background="@color/whitegray"
+            android:orientation="vertical" >
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:text="SPOT 1"
+                android:textSize="16dp"
+                android:id="@+id/spot1"
+                android:textStyle="bold"
+                android:gravity="center"/>
+
+            <Button
+                android:id="@+id/spot1_detail"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text=""
+                android:stateListAnimator="@null"
+                android:onClick="onClick"
+                android:backgroundTint="@color/tumyeongsaeg"/>
+
+
+        </LinearLayout>>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:scaleType="centerInside"
+            android:background="@color/whitegray"
+            android:orientation="vertical" >
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:id="@+id/spot2"
+                android:textSize="16dp"
+                android:text="SPOT 2"
+                android:textStyle="bold"
+                android:gravity="center"/>
+
+            <Button
+                android:id="@+id/spot2_detail"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text=""
+                android:stateListAnimator="@null"
+                android:onClick="onClick"
+                android:backgroundTint="@color/tumyeongsaeg"/>
+
+
+
+        </LinearLayout>>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:scaleType="centerInside"
+        android:background="@color/white"
+        android:scrollbars="vertical"
+        android:orientation="horizontal" >
+
+    </LinearLayout>
+
+
+
+</LinearLayout>

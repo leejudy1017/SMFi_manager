@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/textView_dialog_deleteText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="27dp"
+        android:layout_marginLeft="75dp"
+        android:gravity="center_horizontal"
+        android:text="어떤 SPOT으로 설정하시겠습니까 ?" />
+
+
+    <Button
+        android:id="@+id/button_dialog_spot1Btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="87dp"
+        android:layout_marginTop="70dp"
+        android:layout_marginBottom="16dp"
+        android:backgroundTint="@color/blue"
+        android:textColor="@color/white"
+        android:text="spot1" />
+
+    <Button
+        android:id="@+id/button_dialog_spot2Btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="187dp"
+        android:layout_marginTop="70dp"
+        android:layout_marginBottom="16dp"
+        android:backgroundTint="@color/blue"
+        android:text="spot2"
+        android:textColor="@color/white" />
+
+</RelativeLayout>
