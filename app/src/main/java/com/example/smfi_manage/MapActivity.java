@@ -59,14 +59,14 @@ public class MapActivity  extends FragmentActivity implements OnMapReadyCallback
     String searchText;
     TextView spot1_detail;
     TextView spot2_detail;
-    TextView spot1_title;
-    TextView spot2_title;
+    Button spot1_title;
+    Button spot2_title;
     Button spot1_btn;
     Button spot2_btn;
     GoogleMap mMap;
+    private Geocoder geocoder;
 
     Handler handler = new Handler();
-    float lat,lng;
     String[] lats ;
     String[] lngs;
     int select;
@@ -74,10 +74,12 @@ public class MapActivity  extends FragmentActivity implements OnMapReadyCallback
     String spot1_latitude="";
     String spot1_longitude="";
     String spot1_antennaHeight="";
+    String spot1_antennaAngle="";
 
     String spot2_latitude="";
     String spot2_longitude="";
     String spot2_antennaHeight="";
+    String spot2_antennaAngle="";
 
     public MapActivity() throws IOException {
     }
@@ -98,16 +100,142 @@ public class MapActivity  extends FragmentActivity implements OnMapReadyCallback
         spot1_btn = findViewById(R.id.spot1_detail);
         spot2_btn = findViewById(R.id.spot2_detail);
 
+        spot1_title.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                if(spot1_latitude==""){
+                    Toast.makeText(MapActivity.this,"마커를 먼저 설정해주세요.",Toast.LENGTH_SHORT).show();
+                }
+                else{
+                    AlertDialog.Builder builder = new AlertDialog.Builder(MapActivity.this);
+                    LayoutInflater inflater = getLayoutInflater();
+                    View view = inflater.inflate(R.layout.dialog_marker_delete, null);
+                    builder.setView(view);
+                    final Button deleteBtn = (Button) view.findViewById(R.id.button_dialog_deleteBtn);
+                    final Button confirmBtn = (Button) view.findViewById(R.id.button_dialog_Btn);
+                    final AlertDialog dialog = builder.create();
+
+                    deleteBtn.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            spot1_title.setText("SPOT 1");
+                            spot1_latitude="";
+                            spot1_longitude="";
+                            spot1_detail.setText("");
+
+                            dialog.dismiss();
+                        }
+                    });
+
+                    confirmBtn.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            dialog.dismiss();
+                        }
+                    });
+
+                    dialog.show();
+
+                }
+                return false;
+            }
+        });
+
+        spot2_title.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                if(spot2_latitude==""){
+                    Toast.makeText(MapActivity.this,"마커를 먼저 설정해주세요.",Toast.LENGTH_SHORT).show();
+                }
+                else{
+                    AlertDialog.Builder builder = new AlertDialog.Builder(MapActivity.this);
+                    LayoutInflater inflater = getLayoutInflater();
+                    View view = inflater.inflate(R.layout.dialog_marker_delete, null);
+                    builder.setView(view);
+                    final Button deleteBtn = (Button) view.findViewById(R.id.button_dialog_deleteBtn);
+                    final Button confirmBtn = (Button) view.findViewById(R.id.button_dialog_Btn);
+                    final AlertDialog dialog = builder.create();
+
+                    deleteBtn.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            spot2_title.setText("SPOT 2");
+                            spot2_latitude="";
+                            spot2_longitude="";
+                            spot2_detail.setText("");
+
+                            dialog.dismiss();
+                        }
+                    });
+
+                    confirmBtn.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            dialog.dismiss();
+                        }
+                    });
+
+                    dialog.show();
+
+                }
+                return false;
+            }
+        });
+
+        //검색기능
         searchView=findViewById(R.id.searchView);
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
                 searchText = query;
                 Log.i("search key: ",searchText);
+                List<Address> addressList = null;
 
-                String urlStr= "https://maps.googleapis.com/maps/api/geocode/json?address="+searchText+"&key=AIzaSyBGAkuLBAguuSvJo6SOS5kLcIJFJCLthro&language=en";
-                ConnectThread thread = new ConnectThread(urlStr);
-                thread.start();
+                try {
+                    // editText에 입력한 텍스트(주소, 지역, 장소 등)을 지오 코딩을 이용해 변환
+                    addressList = geocoder.getFromLocationName(
+                            searchText, // 주소
+                            10); // 최대 검색 결과 개수
+                }
+                catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+                if(addressList == null){
+                    Toast.makeText(MapActivity.this,"일치하는 정보가 없습니다.",Toast.LENGTH_SHORT).show();
+                }
+                else{
+                    System.out.println(addressList.get(0).toString());
+                    // 콤마를 기준으로 split
+                    String []splitStr = addressList.get(0).toString().split(",");
+
+                    String latitude="";
+                    String longitude="";
+
+                    for (int i=0;i<splitStr.length;i++) {
+                        if (splitStr[i].contains("latitude")) {
+                            latitude = splitStr[i].split("=")[1];
+                            Log.i("latitude: ", latitude);
+                        }
+                        if (splitStr[i].contains("longitude")) {
+                            longitude = splitStr[i].split("=")[1];
+                            Log.i("longitude: ", longitude);
+                        }
+                    }
+
+                    // 좌표(위도, 경도) 생성
+                    LatLng point = new LatLng(Double.parseDouble(latitude), Double.parseDouble(longitude));
+                    String markerSnippet = "위도: " + latitude + " 경도: " + longitude;
+                    // 마커 생성
+                    MarkerOptions mOptions2 = new MarkerOptions();
+                    mOptions2.title(searchText);
+                    mOptions2.snippet(markerSnippet);
+                    mOptions2.position(point);
+                    // 마커 추가
+                    mMap.addMarker(mOptions2);
+                    // 해당 좌표로 화면 줌
+                    mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(point,15));
+                }
 
                 return true;
             }
@@ -117,7 +245,6 @@ public class MapActivity  extends FragmentActivity implements OnMapReadyCallback
                 return false;
             }
         });
-
     }
 
     public void onClick(View v) throws IOException {
@@ -126,7 +253,7 @@ public class MapActivity  extends FragmentActivity implements OnMapReadyCallback
             case R.id.spot1_detail:
 
                 if(spot1_latitude==""){
-                    Toast.makeText(MapActivity.this,"마커를 눌러 SPOT 1 을 설정해주세요.",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MapActivity.this,"마커를 먼저 설정해주세요.",Toast.LENGTH_SHORT).show();
                     //spot1_btn.setEnabled(false);
                 }
                 else{
@@ -136,7 +263,7 @@ public class MapActivity  extends FragmentActivity implements OnMapReadyCallback
 
             case R.id.spot2_detail:
                 if(spot2_latitude==""){
-                    Toast.makeText(MapActivity.this,"마커를 눌러 SPOT 2 을 설정해주세요.",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MapActivity.this,"마커를 먼저 설정해주세요.",Toast.LENGTH_SHORT).show();
                     //spot2_btn.setEnabled(false);
                 }
                 else{
@@ -144,125 +271,188 @@ public class MapActivity  extends FragmentActivity implements OnMapReadyCallback
                 }
                 break;
 
-        }
-    }
+            case R.id.spot1:
+                if(spot1_latitude==""){
+                    Toast.makeText(MapActivity.this,"마커를 먼저 설정해주세요.",Toast.LENGTH_SHORT).show();
+                    //spot1_btn.setEnabled(false);
+                }
+                else{
+                    LatLng latLng = new LatLng(Double.parseDouble(spot1_latitude), Double.parseDouble(spot1_longitude));
+                    mMap.animateCamera(CameraUpdateFactory.newLatLng(latLng));
+                }
+                break;
 
-    class ConnectThread extends Thread{
-        String urlStr;
-        public ConnectThread(String inStr){
-            urlStr=inStr;
-        }
-        public void run(){
-            try{
-                final String output = request(urlStr);
-                handler.post(new Runnable(){
-                    @Override
-                    public void run() {
-                        findLatLng(output);
+            case R.id.spot2:
+                if(spot2_latitude==""){
+                    Toast.makeText(MapActivity.this,"마커를 먼저 설정해주세요.",Toast.LENGTH_SHORT).show();
+                    //spot1_btn.setEnabled(false);
+                }
+                else{
+                    LatLng latLng = new LatLng(Double.parseDouble(spot2_latitude), Double.parseDouble(spot2_longitude));
+                    mMap.animateCamera(CameraUpdateFactory.newLatLng(latLng));
+                }
+                break;
+
+            case R.id.plus_btn:
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(MapActivity.this);
+                LayoutInflater inflater = getLayoutInflater();
+                View view = inflater.inflate(R.layout.dialog_place_add, null);
+                builder.setView(view);
+                final Button button_submit = (Button) view.findViewById(R.id.button_dialog_placeInfo);
+                final EditText editText_placeTitle = (EditText) view.findViewById(R.id.editText_dialog_placeTitle);
+                final EditText editText_latitude = (EditText) view.findViewById(R.id.editText_dialog_latitude);
+                final EditText editText_longitude = (EditText) view.findViewById(R.id.editText_dialog_longitude);
+
+                final AlertDialog dialog = builder.create();
+                button_submit.setOnClickListener(new View.OnClickListener() {
+                    public void onClick(View v) {
+
+                        if(editText_placeTitle.getText().toString().equals("")){
+                            Toast.makeText(MapActivity.this,"장소 이름을 입력해주세요.",Toast.LENGTH_SHORT).show();
+                        }
+                        else if(editText_latitude.getText().toString().equals("")){
+                            Toast.makeText(MapActivity.this,"위도를 입력해주세요.",Toast.LENGTH_SHORT).show();
+                        }
+                        else if(editText_longitude.getText().toString().equals("")){
+                            Toast.makeText(MapActivity.this,"경도를 입력해주세요.",Toast.LENGTH_SHORT).show();
+                        }
+                        else {
+                            String string_placeTitle = editText_placeTitle.getText().toString();
+                            String markerSnippet = "위도: " + editText_latitude.getText().toString() + " 경도: " + editText_longitude.getText().toString();
+
+                            //맵을 클릭시 현재 위치에 마커 추가
+                            LatLng latLng = new LatLng(Double.parseDouble(editText_latitude.getText().toString()), Double.parseDouble(editText_longitude.getText().toString()));
+                            MarkerOptions markerOptions = new MarkerOptions();
+                            markerOptions.position(latLng);
+                            markerOptions.title(string_placeTitle);
+                            markerOptions.snippet(markerSnippet);
+                            mMap.addMarker(markerOptions);
+                            mMap.animateCamera(CameraUpdateFactory.newLatLng(latLng));
+                            dialog.dismiss();
+                        }
                     }
                 });
-            }catch (Exception e){
-                e.printStackTrace();
-            }
+                dialog.show();
+                break;
+
+            case R.id.calculate:
+
+                if(spot1_latitude==""||spot2_latitude==""){
+                    Toast.makeText(MapActivity.this,"SPOT1과 SPOT2를 모두 설정해주세요.",Toast.LENGTH_SHORT).show();
+                }
+                else{
+                AlertDialog.Builder builder2 = new AlertDialog.Builder(MapActivity.this);
+                LayoutInflater inflater2 = getLayoutInflater();
+                View view2 = inflater2.inflate(R.layout.dialog_calculate, null);
+                builder2.setView(view2);
+                final Button submit_Btn = (Button) view2.findViewById(R.id.submit_Btn);
+                final TextView spot1_to_spot2 = (TextView) view2.findViewById(R.id.spot1_to_spot2);
+
+                double distance = distance(Double.parseDouble(spot1_latitude),Double.parseDouble(spot1_longitude),Double.parseDouble(spot2_latitude),Double.parseDouble(spot2_longitude),"meter");
+                Log.i("distance", String.valueOf(distance));
+                double temp1 = 2*distance*Math.tan((Double.parseDouble(spot1_antennaAngle)/2*180/Math.PI));
+                spot1_to_spot2.setText(temp1+" m");
+
+                final AlertDialog dialog2 = builder2.create();
+                submit_Btn.setOnClickListener(new View.OnClickListener() {
+                    public void onClick(View v) {
+                        dialog2.dismiss();
+                    }
+                });
+                dialog2.show();
+                }
+                break;
+
+            case R.id.calculate2:
+                AlertDialog.Builder builder2 = new AlertDialog.Builder(MapActivity.this);
+                LayoutInflater inflater2 = getLayoutInflater();
+                View view2 = inflater2.inflate(R.layout.dialog_calculate2, null);
+                builder2.setView(view2);
+                final Button calculate_Btn = (Button) view2.findViewById(R.id.button_dialog_calculateBtn);
+                final Button cancel_Btn = (Button) view2.findViewById(R.id.button_delete_Btn);
+                final EditText edit_distance =(EditText) view2.findViewById(R.id.editText_dialog_distance);
+                final EditText edit_angle =(EditText) view2.findViewById(R.id.editText_dialog_antennaAngle);
+                final TextView distance = (TextView) view2.findViewById(R.id.distance);
+                final Button x33 = (Button) view2.findViewById(R.id.x33);
+                final Button p29 = (Button) view2.findViewById(R.id.p29);
+                final Button p30 = (Button) view2.findViewById(R.id.p30);
+
+                final AlertDialog dialog2 = builder2.create();
+
+                x33.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        edit_angle.setText("17");
+                    }
+                });
+                p29.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        edit_angle.setText("6.5");
+                    }
+                });
+                p30.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        edit_angle.setText("5");
+                    }
+                });
+
+                calculate_Btn.setOnClickListener(new View.OnClickListener() {
+                    public void onClick(View v) {
+                        if(edit_distance.getText().toString().equals("")){
+                            Toast.makeText(MapActivity.this,"거리 값을 입력해주세요.",Toast.LENGTH_SHORT).show();
+                        }
+                        else if(edit_angle.getText().toString().equals("")){
+                            Toast.makeText(MapActivity.this,"안테나 각도를 입력해주세요.",Toast.LENGTH_SHORT).show();
+                        }
+                        else{
+                            double temp2 = Math.tan((Double.parseDouble(edit_angle.getText().toString())/2*Math.PI/180));
+                            double temp1 = 2*Double.parseDouble(edit_distance.getText().toString())*temp2;
+                            Toast.makeText(MapActivity.this,"tan: "+temp2,Toast.LENGTH_SHORT).show();
+                            distance.setText(temp1+" m");
+                        }
+                    }
+                });
+                cancel_Btn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialog2.dismiss();
+                    }
+                });
+                dialog2.show();
+                break;
+
         }
     }
 
-    private String request(String urlStr){
-        StringBuilder output = new StringBuilder();
-        try{
-            URL url = new URL(urlStr);
-            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 
-            if(conn!=null){
-                conn.setConnectTimeout(10000);
-                conn.setRequestMethod("GET");
-                conn.setDoInput(true);
-                conn.setDoOutput(true);
-                conn.setRequestProperty("Accept-Charset","UTF-8");
+    private static double distance(double lat1, double lon1, double lat2, double lon2, String unit) {
 
-                int resCode = conn.getResponseCode();
+        double theta = lon1 - lon2;
+        double dist = Math.sin(deg2rad(lat1)) * Math.sin(deg2rad(lat2)) + Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) * Math.cos(deg2rad(theta));
 
-                Log.d("resCode",String.valueOf(resCode));
-                if(resCode==HttpURLConnection.HTTP_OK){
-                    BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream(),"UTF-8"));
+        dist = Math.acos(dist);
+        dist = rad2deg(dist);
+        dist = dist * 60 * 1.1515;
 
-                    String line = null;
-                    while(true){
-                        line = reader.readLine();
-                        if(line==null){
-                            break;
-                        }
-                        output.append(line+"\n");
-                    }
-                    reader.close();
-                    conn.disconnect();
-                }
-            }
-
-        } catch (MalformedURLException e) {
-            Log.e("SampleHTTP","Exception in processing response",e);
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
+        if (unit == "kilometer") {
+            dist = dist * 1.609344;
+        } else if(unit == "meter"){
+            dist = dist * 1609.344;
         }
-        return output.toString();
+
+        return (dist);
+    }
+    // This function converts decimal degrees to radians
+    private static double deg2rad(double deg) {
+        return (deg * Math.PI / 180.0);
     }
 
-    private void findLatLng(String output){
-        Log.d("output",output);
-        try{
-            JSONObject jsonObject = new JSONObject(output);
-            String status = jsonObject.getString("status");
-            String condition= status.trim();
-
-            if(condition.equals("OK")){
-                JSONArray jsonResultsArray = new JSONArray(jsonObject.getString("results"));
-                int jsonResultsLength= jsonResultsArray.length();
-                if(jsonResultsLength>5){
-                    Toast.makeText(MapActivity.this,"검색된 값이 너무 많습니다.",Toast.LENGTH_LONG).show();
-                }else if(jsonResultsLength>1){
-                    String addresses[] = new String[jsonResultsLength];
-                    lats = new String[jsonResultsLength];
-                    lngs=new String[jsonResultsLength];
-
-                    for (int i =0;i<jsonResultsLength;i++){
-                        String address = jsonResultsArray.getJSONObject(i).getString("formatted_address");
-                        JSONObject geoObject = new JSONObject(jsonResultsArray.getJSONObject(i).getString("geometry"));
-                        JSONObject locObject = new JSONObject(geoObject.getString("location"));
-                        String lat = locObject.getString("lat");
-                        String lng = locObject.getString("lng");
-
-                        addresses[i] = address;
-                        lats[i] = lat;
-                        lngs[i] = lng;
-                    }
-
-                    AlertDialog.Builder ab= new AlertDialog.Builder(MapActivity.this);
-                    ab.setTitle("아래에서 해당 주소를 선택하세요.");
-                    ab.setSingleChoiceItems(addresses, select, new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            select = which;
-                        }
-                    }).setPositiveButton("선택", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            Toast.makeText(MapActivity.this,"위도: "+ lats[select]+"경도: "+lngs[select],Toast.LENGTH_SHORT).show();
-                        }
-                    }).setNegativeButton("취소",null);
-                    ab.show();
-                } else if(jsonResultsLength ==1){
-                    JSONObject geoObject = new JSONObject(jsonResultsArray.getJSONObject(0).getString("geometry"));
-                    JSONObject locObject = new JSONObject(geoObject.getString("location"));
-                    String lat = locObject.getString("lat");
-                    String lng =locObject.getString("lng");
-                }
-            } else{
-                Toast.makeText(MapActivity.this,"해당 조회 결과 값이 없습니다.",Toast.LENGTH_LONG).show();
-            }
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+    // This function converts radians to decimal degrees
+    private static double rad2deg(double rad) {
+        return (rad * 180 / Math.PI);
     }
 
 
@@ -270,6 +460,7 @@ public class MapActivity  extends FragmentActivity implements OnMapReadyCallback
     public void onMapReady(GoogleMap googleMap) {
         // 구글 맵 객체를 불러온다.
         mMap = googleMap;
+        geocoder = new Geocoder(this);
 
         // 서울 여의도에 대한 위치 설정 (초기설정)
         LatLng seoul = new LatLng(37.52487, 126.92723);
@@ -409,7 +600,6 @@ public class MapActivity  extends FragmentActivity implements OnMapReadyCallback
         });
 
         dialog.show();
-
         return false;
     }
 
@@ -488,27 +678,60 @@ public class MapActivity  extends FragmentActivity implements OnMapReadyCallback
         builder.setView(view);
         final Button antenna = (Button) view.findViewById(R.id.button_dialog_antennaBtn);
         final EditText antennaHeight = (EditText) view.findViewById(R.id.editText_dialog_antennaHeight);
+        final EditText antennaAngle = (EditText) view.findViewById(R.id.editText_dialog_antennaAngle);
+        final Button x33 = (Button) view.findViewById(R.id.x33);
+        final Button p29 = (Button) view.findViewById(R.id.p29);
+        final Button p30 = (Button) view.findViewById(R.id.p30);
         final AlertDialog dialog = builder.create();
+
+        x33.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                antennaAngle.setText("17");
+            }
+        });
+        p29.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                antennaAngle.setText("6.5");
+            }
+        });
+        p30.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                antennaAngle.setText("5");
+            }
+        });
 
         antenna.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                if(btn==0){
-                    spot1_title.setText(title);
-                    spot1_latitude = latitude;
-                    spot1_longitude =longitude;
-                    spot1_antennaHeight = antennaHeight.getText().toString();
-                    spot1_detail.setText("위도: "+latitude+"\n경도: "+longitude+"\n고도: "+"\n안테나 높이: " + antennaHeight.getText().toString());
+                if(antennaHeight.getText().toString().equals("")){
+                    Toast.makeText(MapActivity.this,"안테나 높이를 입력해주세요.",Toast.LENGTH_SHORT).show();
+                }
+                else if(antennaAngle.getText().toString().equals("")){
+                    Toast.makeText(MapActivity.this,"안테나 각도를 입력해주세요.",Toast.LENGTH_SHORT).show();
                 }
                 else{
-                    spot2_title.setText(title);
-                    spot2_latitude = latitude;
-                    spot2_longitude =longitude;
-                    spot2_antennaHeight = antennaHeight.getText().toString();
-                    spot2_detail.setText("위도: "+latitude+"\n경도: "+longitude+"\n고도: "+"\n안테나 높이: " + antennaHeight.getText().toString());
+                    if(btn==0){
+                        spot1_title.setText(title);
+                        spot1_latitude = latitude;
+                        spot1_longitude =longitude;
+                        spot1_antennaHeight = antennaHeight.getText().toString();
+                        spot1_antennaAngle = antennaAngle.getText().toString();
+                        spot1_detail.setText("위도: "+spot1_latitude+"\n경도: "+spot1_longitude+"\n고도: "+"\n안테나 높이: " + spot1_antennaHeight+" m \n안테나 각도: " + spot1_antennaAngle+"°");
+                    }
+                    else{
+                        spot2_title.setText(title);
+                        spot2_latitude = latitude;
+                        spot2_longitude =longitude;
+                        spot2_antennaHeight = antennaHeight.getText().toString();
+                        spot2_antennaAngle = antennaAngle.getText().toString();
+                        spot2_detail.setText("위도: "+spot2_latitude+"\n경도: "+spot2_longitude+"\n고도: "+"\n안테나 높이: " + spot2_antennaHeight+" m \n안테나 각도: " + spot2_antennaAngle+"°");
+                    }
+                    dialog.dismiss();
                 }
-                dialog.dismiss();
             }
         });
 

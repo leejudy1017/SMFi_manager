@@ -13,19 +13,20 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_marginLeft="22dp"
-        android:layout_marginStart="22dp"
-        android:layout_marginTop="26dp"
-        android:text="장소 이름" />
+        android:layout_marginStart="42dp"
+        android:layout_marginTop="30dp"
+        android:textStyle="bold"
+        android:text="반경 범위" />
 
-    <EditText
-        android:id="@+id/editText_dialog_placeTitle"
+    <TextView
+        android:id="@+id/spot1_to_spot2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_marginLeft="37dp"
-        android:layout_marginStart="37dp"
+        android:layout_marginStart="57dp"
         android:gravity="center"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="30dp"
         android:layout_toEndOf="@+id/textView_dialog_placeTitle"
         android:layout_toRightOf="@+id/textView_dialog_placeTitle"
         android:ems="10"
@@ -34,9 +35,8 @@
         android:scrollbars="horizontal"
         android:text="" />
 
-
     <Button
-        android:id="@+id/button_dialog_placeInfo"
+        android:id="@+id/submit_Btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="137dp"
@@ -44,6 +44,6 @@
         android:layout_marginBottom="16dp"
         android:backgroundTint="@color/blue"
         android:textColor="@color/white"
-        android:text="완료" />
+        android:text="확인" />
 
 </RelativeLayout>

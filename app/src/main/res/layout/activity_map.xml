@@ -29,18 +29,35 @@
 
     </LinearLayout>
 
-    <fragment
+
+    <FrameLayout
+        android:id="@+id/fram_map"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="9.5"
-        android:id="@+id/map"
-        tools:context=".MapsActivity"
-        android:name="com.google.android.gms.maps.SupportMapFragment" />
+        android:layout_weight="9.5" >
+        <fragment
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/map"
+            tools:context=".MapsActivity"
+            android:name="com.google.android.gms.maps.SupportMapFragment" />
+
+        <ImageButton
+            android:id="@+id/plus_btn"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_gravity="right|top"
+            android:background="@drawable/blue_add_btn"
+            android:onClick="onClick"
+            android:layout_marginTop="400dp"
+            android:layout_marginRight="15dp" />
+
+    </FrameLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="3"
+        android:layout_weight="3.5"
         android:scaleType="centerInside"
         android:background="@color/whitegray"
         android:scrollbars="vertical"
@@ -54,13 +71,18 @@
             android:background="@color/whitegray"
             android:orientation="vertical" >
 
-            <TextView
+            <Button
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
+                android:layout_height="45dp"
                 android:text="SPOT 1"
                 android:textSize="16dp"
                 android:id="@+id/spot1"
+                android:textAllCaps="false"
+                android:textColor="@color/darkgray"
                 android:textStyle="bold"
+                android:stateListAnimator="@null"
+                android:onClick="onClick"
+                android:backgroundTint="@color/tumyeongsaeg"
                 android:gravity="center"/>
 
             <Button
@@ -68,12 +90,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:text=""
+                android:gravity="center"
+                android:textAllCaps="false"
                 android:stateListAnimator="@null"
                 android:onClick="onClick"
                 android:backgroundTint="@color/tumyeongsaeg"/>
 
 
-        </LinearLayout>>
+        </LinearLayout>
 
 
         <LinearLayout
@@ -84,12 +108,17 @@
             android:background="@color/whitegray"
             android:orientation="vertical" >
 
-            <TextView
+            <Button
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
+                android:layout_height="45dp"
                 android:id="@+id/spot2"
                 android:textSize="16dp"
+                android:textColor="@color/darkgray"
                 android:text="SPOT 2"
+                android:stateListAnimator="@null"
+                android:onClick="onClick"
+                android:textAllCaps="false"
+                android:backgroundTint="@color/tumyeongsaeg"
                 android:textStyle="bold"
                 android:gravity="center"/>
 
@@ -98,6 +127,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:text=""
+                android:gravity="center"
+                android:textAllCaps="false"
                 android:stateListAnimator="@null"
                 android:onClick="onClick"
                 android:backgroundTint="@color/tumyeongsaeg"/>
@@ -117,8 +148,76 @@
         android:scrollbars="vertical"
         android:orientation="horizontal" >
 
-    </LinearLayout>
+        <Button
+            android:id="@+id/calculate"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="cal1"
+            android:textStyle="bold"
+            android:textColor="@color/darkgray"
+            android:paddingBottom="0dp"
+            android:paddingTop="0dp"
+            android:paddingLeft="0dp"
+            android:paddingRight="0dp"
+            android:gravity="center"
+            android:textAllCaps="false"
+            android:stateListAnimator="@null"
+            android:onClick="onClick"
+            android:backgroundTint="@color/whitegray"/>
 
+        <Button
+            android:id="@+id/calculate2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="cal2"
+            android:textStyle="bold"
+            android:textColor="@color/darkgray"
+            android:gravity="center"
+            android:textAllCaps="false"
+            android:stateListAnimator="@null"
+            android:onClick="onClick"
+            android:backgroundTint="@color/whitegray"/>
+
+        <Button
+            android:id="@+id/main"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text=""
+            android:gravity="center"
+            android:textAllCaps="false"
+            android:stateListAnimator="@null"
+            android:onClick="onClick"
+            android:backgroundTint="@color/blue"/>
+
+        <Button
+            android:id="@+id/temp3"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text=""
+            android:gravity="center"
+            android:textAllCaps="false"
+            android:stateListAnimator="@null"
+            android:onClick="onClick"
+            android:backgroundTint="@color/whitegray"/>
+
+        <Button
+            android:id="@+id/temp4"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text=""
+            android:gravity="center"
+            android:textAllCaps="false"
+            android:stateListAnimator="@null"
+            android:onClick="onClick"
+            android:backgroundTint="@color/whitegray"/>
+
+
+    </LinearLayout>
 
 
 </LinearLayout>
