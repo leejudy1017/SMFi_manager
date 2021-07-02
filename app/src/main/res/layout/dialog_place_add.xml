@@ -43,7 +43,7 @@
         android:layout_alignParentTop="true"
         android:layout_marginLeft="22dp"
         android:layout_marginStart="22dp"
-        android:layout_marginTop="76dp"
+        android:layout_marginTop="67dp"
         android:text="위도" />
 
     <EditText
@@ -54,7 +54,7 @@
         android:layout_marginLeft="37dp"
         android:layout_marginStart="37dp"
         android:gravity="center"
-        android:layout_marginTop="66dp"
+        android:layout_marginTop="56dp"
         android:layout_toEndOf="@+id/textView_dialog_placeTitle"
         android:layout_toRightOf="@+id/textView_dialog_placeTitle"
         android:ems="10"
@@ -72,7 +72,7 @@
         android:layout_alignParentTop="true"
         android:layout_marginLeft="22dp"
         android:layout_marginStart="22dp"
-        android:layout_marginTop="126dp"
+        android:layout_marginTop="110dp"
         android:text="경도" />
 
     <EditText
@@ -83,7 +83,7 @@
         android:layout_marginLeft="37dp"
         android:layout_marginStart="37dp"
         android:gravity="center"
-        android:layout_marginTop="116dp"
+        android:layout_marginTop="96dp"
         android:layout_toEndOf="@+id/textView_dialog_placeTitle"
         android:layout_toRightOf="@+id/textView_dialog_placeTitle"
         android:ems="10"
@@ -98,7 +98,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="137dp"
-        android:layout_marginTop="180dp"
+        android:layout_marginTop="155dp"
         android:layout_marginBottom="16dp"
         android:backgroundTint="@color/blue"
         android:textColor="@color/white"

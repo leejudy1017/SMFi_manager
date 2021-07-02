@@ -66,11 +66,6 @@ public class MapActivity  extends FragmentActivity implements OnMapReadyCallback
     GoogleMap mMap;
     private Geocoder geocoder;
 
-    Handler handler = new Handler();
-    String[] lats ;
-    String[] lngs;
-    int select;
-
     String spot1_latitude="";
     String spot1_longitude="";
     String spot1_antennaHeight="";
@@ -342,25 +337,25 @@ public class MapActivity  extends FragmentActivity implements OnMapReadyCallback
                     Toast.makeText(MapActivity.this,"SPOT1과 SPOT2를 모두 설정해주세요.",Toast.LENGTH_SHORT).show();
                 }
                 else{
-                AlertDialog.Builder builder2 = new AlertDialog.Builder(MapActivity.this);
-                LayoutInflater inflater2 = getLayoutInflater();
-                View view2 = inflater2.inflate(R.layout.dialog_calculate, null);
-                builder2.setView(view2);
-                final Button submit_Btn = (Button) view2.findViewById(R.id.submit_Btn);
-                final TextView spot1_to_spot2 = (TextView) view2.findViewById(R.id.spot1_to_spot2);
+                    AlertDialog.Builder builder2 = new AlertDialog.Builder(MapActivity.this);
+                    LayoutInflater inflater2 = getLayoutInflater();
+                    View view2 = inflater2.inflate(R.layout.dialog_calculate, null);
+                    builder2.setView(view2);
+                    final Button submit_Btn = (Button) view2.findViewById(R.id.submit_Btn);
+                    final TextView spot1_to_spot2 = (TextView) view2.findViewById(R.id.spot1_to_spot2);
 
-                double distance = distance(Double.parseDouble(spot1_latitude),Double.parseDouble(spot1_longitude),Double.parseDouble(spot2_latitude),Double.parseDouble(spot2_longitude),"meter");
-                Log.i("distance", String.valueOf(distance));
-                double temp1 = 2*distance*Math.tan((Double.parseDouble(spot1_antennaAngle)/2*180/Math.PI));
-                spot1_to_spot2.setText(temp1+" m");
+                    double distance = distance(Double.parseDouble(spot1_latitude),Double.parseDouble(spot1_longitude),Double.parseDouble(spot2_latitude),Double.parseDouble(spot2_longitude),"meter");
+                    Log.i("distance", String.valueOf(distance));
+                    double temp1 = 2*distance*Math.tan((Double.parseDouble(spot1_antennaAngle)/2*180/Math.PI));
+                    spot1_to_spot2.setText(temp1+" m");
 
-                final AlertDialog dialog2 = builder2.create();
-                submit_Btn.setOnClickListener(new View.OnClickListener() {
-                    public void onClick(View v) {
-                        dialog2.dismiss();
-                    }
-                });
-                dialog2.show();
+                    final AlertDialog dialog2 = builder2.create();
+                    submit_Btn.setOnClickListener(new View.OnClickListener() {
+                        public void onClick(View v) {
+                            dialog2.dismiss();
+                        }
+                    });
+                    dialog2.show();
                 }
                 break;
 
@@ -410,7 +405,6 @@ public class MapActivity  extends FragmentActivity implements OnMapReadyCallback
                         else{
                             double temp2 = Math.tan((Double.parseDouble(edit_angle.getText().toString())/2*Math.PI/180));
                             double temp1 = 2*Double.parseDouble(edit_distance.getText().toString())*temp2;
-                            Toast.makeText(MapActivity.this,"tan: "+temp2,Toast.LENGTH_SHORT).show();
                             distance.setText(temp1+" m");
                         }
                     }
@@ -422,6 +416,12 @@ public class MapActivity  extends FragmentActivity implements OnMapReadyCallback
                     }
                 });
                 dialog2.show();
+                break;
+
+            case R.id.logout:
+                Intent intent2 = new Intent(getApplication(),LoginActivity.class);
+                startActivity(intent2);
+                finish();
                 break;
 
         }
@@ -588,14 +588,13 @@ public class MapActivity  extends FragmentActivity implements OnMapReadyCallback
 
                 if(marker.getTitle().equals(spot1_title.getText().toString()) || marker.getTitle().equals(spot2_title.getText().toString())){
                     Toast.makeText(MapActivity.this,"이미 SPOT 으로 설정된 마커입니다.",Toast.LENGTH_LONG).show();
-                    dialog.dismiss();
                 }
                 else{
                     String info = marker.getSnippet();
                     String title = marker.getTitle();
                     selectSpot(info,title);
-                    dialog.dismiss();
                 }
+                dialog.dismiss();
             }
         });
 
@@ -720,7 +719,7 @@ public class MapActivity  extends FragmentActivity implements OnMapReadyCallback
                         spot1_longitude =longitude;
                         spot1_antennaHeight = antennaHeight.getText().toString();
                         spot1_antennaAngle = antennaAngle.getText().toString();
-                        spot1_detail.setText("위도: "+spot1_latitude+"\n경도: "+spot1_longitude+"\n고도: "+"\n안테나 높이: " + spot1_antennaHeight+" m \n안테나 각도: " + spot1_antennaAngle+"°");
+                        spot1_detail.setText("위도: "+spot1_latitude+"\n경도: "+spot1_longitude+"\n고도: "+"\n안테나 높이: " + spot1_antennaHeight+" m \n안테나 각도: " + spot1_antennaAngle+"° \n");
                     }
                     else{
                         spot2_title.setText(title);
@@ -728,7 +727,7 @@ public class MapActivity  extends FragmentActivity implements OnMapReadyCallback
                         spot2_longitude =longitude;
                         spot2_antennaHeight = antennaHeight.getText().toString();
                         spot2_antennaAngle = antennaAngle.getText().toString();
-                        spot2_detail.setText("위도: "+spot2_latitude+"\n경도: "+spot2_longitude+"\n고도: "+"\n안테나 높이: " + spot2_antennaHeight+" m \n안테나 각도: " + spot2_antennaAngle+"°");
+                        spot2_detail.setText("위도: "+spot2_latitude+"\n경도: "+spot2_longitude+"\n고도: "+"\n안테나 높이: " + spot2_antennaHeight+" m \n안테나 각도: " + spot2_antennaAngle+"° \n");
                     }
                     dialog.dismiss();
                 }

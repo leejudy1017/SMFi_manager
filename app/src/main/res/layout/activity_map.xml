@@ -46,10 +46,10 @@
             android:id="@+id/plus_btn"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:layout_gravity="right|top"
+            android:layout_gravity="right|bottom"
             android:background="@drawable/blue_add_btn"
             android:onClick="onClick"
-            android:layout_marginTop="400dp"
+            android:layout_marginBottom="15dp"
             android:layout_marginRight="15dp" />
 
     </FrameLayout>
@@ -57,7 +57,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="3.5"
+        android:layout_weight="4"
+        android:id="@+id/layout"
         android:scaleType="centerInside"
         android:background="@color/whitegray"
         android:scrollbars="vertical"
@@ -73,7 +74,7 @@
 
             <Button
                 android:layout_width="match_parent"
-                android:layout_height="45dp"
+                android:layout_height="40dp"
                 android:text="SPOT 1"
                 android:textSize="16dp"
                 android:id="@+id/spot1"
@@ -90,6 +91,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:text=""
+                android:minHeight="0dp"
+                android:minWidth="0dp"
                 android:gravity="center"
                 android:textAllCaps="false"
                 android:stateListAnimator="@null"
@@ -110,7 +113,7 @@
 
             <Button
                 android:layout_width="match_parent"
-                android:layout_height="45dp"
+                android:layout_height="40dp"
                 android:id="@+id/spot2"
                 android:textSize="16dp"
                 android:textColor="@color/darkgray"
@@ -127,6 +130,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:text=""
+                android:minHeight="0dp"
+                android:minWidth="0dp"
                 android:gravity="center"
                 android:textAllCaps="false"
                 android:stateListAnimator="@null"
@@ -154,7 +159,6 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:text="cal1"
-            android:textStyle="bold"
             android:textColor="@color/darkgray"
             android:paddingBottom="0dp"
             android:paddingTop="0dp"
@@ -172,7 +176,6 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:text="cal2"
-            android:textStyle="bold"
             android:textColor="@color/darkgray"
             android:gravity="center"
             android:textAllCaps="false"
@@ -181,11 +184,12 @@
             android:backgroundTint="@color/whitegray"/>
 
         <Button
-            android:id="@+id/main"
+            android:id="@+id/test"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text=""
+            android:text="TEST"
+            android:textStyle="bold"
             android:gravity="center"
             android:textAllCaps="false"
             android:stateListAnimator="@null"
@@ -205,11 +209,12 @@
             android:backgroundTint="@color/whitegray"/>
 
         <Button
-            android:id="@+id/temp4"
+            android:id="@+id/logout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text=""
+            android:text="logout"
+            android:textColor="@color/blue"
             android:gravity="center"
             android:textAllCaps="false"
             android:stateListAnimator="@null"
