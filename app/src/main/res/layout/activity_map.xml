@@ -189,6 +189,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:text="TEST"
+            android:textColor="@color/white"
             android:textStyle="bold"
             android:gravity="center"
             android:textAllCaps="false"

@@ -587,7 +587,7 @@ public class MapActivity  extends FragmentActivity implements OnMapReadyCallback
             public void onClick(View v) {
 
                 if(marker.getTitle().equals(spot1_title.getText().toString()) || marker.getTitle().equals(spot2_title.getText().toString())){
-                    Toast.makeText(MapActivity.this,"이미 SPOT 으로 설정된 마커입니다.",Toast.LENGTH_LONG).show();
+                    Toast.makeText(MapActivity.this,"이미 SPOT 으로 설정된 마커입니다.",Toast.LENGTH_SHORT).show();
                 }
                 else{
                     String info = marker.getSnippet();
