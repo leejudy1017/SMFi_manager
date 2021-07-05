@@ -23,7 +23,7 @@
             android:layout_margin="10dp"
             android:layout_gravity="center"
             android:iconifiedByDefault="false"
-            android:queryHint="검색어를 입력하세요"
+            android:queryHint="위치를 입력하세요"
             android:background="@color/white"
             />
 
@@ -44,10 +44,10 @@
 
         <ImageButton
             android:id="@+id/plus_btn"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
             android:layout_gravity="right|bottom"
-            android:background="@drawable/blue_add_btn"
+            android:background="@drawable/plus_shadow"
             android:onClick="onClick"
             android:layout_marginBottom="15dp"
             android:layout_marginRight="15dp" />
@@ -198,12 +198,13 @@
             android:backgroundTint="@color/blue"/>
 
         <Button
-            android:id="@+id/temp3"
+            android:id="@+id/clear"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text=""
+            android:text="clear"
             android:gravity="center"
+            android:textColor="@color/darkgray"
             android:textAllCaps="false"
             android:stateListAnimator="@null"
             android:onClick="onClick"
@@ -215,7 +216,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:text="logout"
-            android:textColor="@color/blue"
+            android:textColor="@color/darkgray"
             android:gravity="center"
             android:textAllCaps="false"
             android:stateListAnimator="@null"
