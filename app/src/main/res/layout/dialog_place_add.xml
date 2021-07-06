@@ -5,34 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/textView_dialog_placeTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginLeft="22dp"
-        android:layout_marginStart="22dp"
-        android:layout_marginTop="26dp"
-        android:text="장소 이름" />
-
-    <EditText
-        android:id="@+id/editText_dialog_placeTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_marginLeft="37dp"
-        android:layout_marginStart="37dp"
-        android:gravity="center"
-        android:layout_marginTop="16dp"
-        android:layout_toEndOf="@+id/textView_dialog_placeTitle"
-        android:layout_toRightOf="@+id/textView_dialog_placeTitle"
-        android:ems="10"
-        android:inputType="text"
-        android:singleLine="true"
-        android:scrollbars="horizontal"
-        android:text="" />
 
     <TextView
         android:id="@+id/textView_dialog_latitude"
@@ -43,8 +15,8 @@
         android:layout_alignParentTop="true"
         android:layout_marginLeft="22dp"
         android:layout_marginStart="22dp"
-        android:layout_marginTop="67dp"
-        android:text="위도" />
+        android:layout_marginTop="26dp"
+        android:text="  위도     " />
 
     <EditText
         android:id="@+id/editText_dialog_latitude"
@@ -54,9 +26,9 @@
         android:layout_marginLeft="37dp"
         android:layout_marginStart="37dp"
         android:gravity="center"
-        android:layout_marginTop="56dp"
-        android:layout_toEndOf="@+id/textView_dialog_placeTitle"
-        android:layout_toRightOf="@+id/textView_dialog_placeTitle"
+        android:layout_marginTop="16dp"
+        android:layout_toEndOf="@+id/textView_dialog_latitude"
+        android:layout_toRightOf="@+id/textView_dialog_latitude"
         android:ems="10"
         android:inputType="numberDecimal|numberSigned"
         android:singleLine="true"
@@ -72,8 +44,8 @@
         android:layout_alignParentTop="true"
         android:layout_marginLeft="22dp"
         android:layout_marginStart="22dp"
-        android:layout_marginTop="110dp"
-        android:text="경도" />
+        android:layout_marginTop="67dp"
+        android:text="  경도     " />
 
     <EditText
         android:id="@+id/editText_dialog_longitude"
@@ -83,9 +55,9 @@
         android:layout_marginLeft="37dp"
         android:layout_marginStart="37dp"
         android:gravity="center"
-        android:layout_marginTop="96dp"
-        android:layout_toEndOf="@+id/textView_dialog_placeTitle"
-        android:layout_toRightOf="@+id/textView_dialog_placeTitle"
+        android:layout_marginTop="56dp"
+        android:layout_toEndOf="@+id/textView_dialog_latitude"
+        android:layout_toRightOf="@+id/textView_dialog_latitude"
         android:ems="10"
         android:inputType="numberDecimal|numberSigned"
         android:singleLine="true"
@@ -98,7 +70,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="137dp"
-        android:layout_marginTop="155dp"
+        android:layout_marginTop="120dp"
         android:layout_marginBottom="16dp"
         android:backgroundTint="@color/blue"
         android:textColor="@color/white"

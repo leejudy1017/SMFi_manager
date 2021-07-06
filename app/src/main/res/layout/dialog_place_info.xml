@@ -13,26 +13,10 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_marginLeft="22dp"
-        android:layout_marginStart="22dp"
+        android:layout_marginStart="102dp"
         android:layout_marginTop="26dp"
-        android:text="장소 이름" />
+        android:text="마커를 설정하시겠습니까 ?" />
 
-    <EditText
-        android:id="@+id/editText_dialog_placeTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_marginLeft="37dp"
-        android:layout_marginStart="37dp"
-        android:gravity="center"
-        android:layout_marginTop="16dp"
-        android:layout_toEndOf="@+id/textView_dialog_placeTitle"
-        android:layout_toRightOf="@+id/textView_dialog_placeTitle"
-        android:ems="10"
-        android:inputType="text"
-        android:singleLine="true"
-        android:scrollbars="horizontal"
-        android:text="" />
 
 
     <Button
@@ -44,6 +28,6 @@
         android:layout_marginBottom="16dp"
         android:backgroundTint="@color/blue"
         android:textColor="@color/white"
-        android:text="완료" />
+        android:text="설정" />
 
 </RelativeLayout>
