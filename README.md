@@ -1,3 +1,4 @@
 # SMFi_manager
 
-![https://s3-us-west-2.amazonaws.com/secure.notion-static.com/65b756b3-33dd-44b7-9bcb-ec8a8f29de26/Untitled.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/65b756b3-33dd-44b7-9bcb-ec8a8f29de26/Untitled.png)
+![Group 14](https://user-images.githubusercontent.com/70352603/124558303-6a3f3800-de75-11eb-927b-1840b12c5897.png)
+
