@@ -25,6 +25,8 @@
             android:iconifiedByDefault="false"
             android:queryHint="위치를 입력하세요"
             android:background="@color/white"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
             />
 
     </LinearLayout>

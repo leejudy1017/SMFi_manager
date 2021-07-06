@@ -131,11 +131,11 @@ public class MapActivity  extends FragmentActivity implements OnMapReadyCallback
     //marker 모음 {"place",[경도,위도]
     HashMap<String, double[]> markerMap = new HashMap<>();
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map);
-
 
         locationRequest = new LocationRequest()
                 .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
@@ -245,6 +245,10 @@ public class MapActivity  extends FragmentActivity implements OnMapReadyCallback
 
         //검색기능
         searchView = findViewById(R.id.searchView);
+
+        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(searchView.getWindowToken(),0);
+
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -289,7 +293,7 @@ public class MapActivity  extends FragmentActivity implements OnMapReadyCallback
                         //markerMap 마커추가
                         //markerMap.put(searchText, new double[]{Double.parseDouble(latitude), Double.parseDouble(longitude)});
                         // 해당 좌표로 화면 줌
-                        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(point, 15));
+                        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(point, 17));
                     }
                     else{
                         Toast.makeText(MapActivity.this, "일치하는 정보가 없습니다.", Toast.LENGTH_SHORT).show();
@@ -300,6 +304,7 @@ public class MapActivity  extends FragmentActivity implements OnMapReadyCallback
                     Toast.makeText(MapActivity.this, "일치하는 정보가 없습니다.", Toast.LENGTH_SHORT).show();
                 }
 
+
                 return true;
             }
 
@@ -309,12 +314,6 @@ public class MapActivity  extends FragmentActivity implements OnMapReadyCallback
             }
         });
 
-        //키보드 숨기기
-        LinearLayout layout = findViewById(R.id.layout_main);
-        layout.setOnClickListener(v ->{
-            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-            imm.hideSoftInputFromWindow(searchView.getWindowToken(),0);
-        });
     }
 
     public void onClick(View v) throws IOException {
@@ -413,11 +412,13 @@ public class MapActivity  extends FragmentActivity implements OnMapReadyCallback
                     builder2.setView(view2);
                     final Button submit_Btn = (Button) view2.findViewById(R.id.submit_Btn);
                     final TextView spot1_to_spot2 = (TextView) view2.findViewById(R.id.spot1_to_spot2);
+                    final TextView distance_textview = (TextView) view2.findViewById(R.id.spot1_to_spot2_distance);
 
                     double distance = distance(Double.parseDouble(spot1_latitude), Double.parseDouble(spot1_longitude), Double.parseDouble(spot2_latitude), Double.parseDouble(spot2_longitude), "meter");
                     Log.i("distance", String.valueOf(distance));
                     double temp1 = 2 * distance * Math.tan((Double.parseDouble(spot1_antennaAngle) / 2 * 180 / Math.PI));
                     spot1_to_spot2.setText(temp1 + " m");
+                    distance_textview.setText(distance +" m");
 
                     final AlertDialog dialog2 = builder2.create();
                     submit_Btn.setOnClickListener(new View.OnClickListener() {
@@ -708,10 +709,6 @@ public class MapActivity  extends FragmentActivity implements OnMapReadyCallback
                     tracking=1;
                 }
             }
-
-
-
-
 
         }
 
@@ -1115,3 +1112,4 @@ public class MapActivity  extends FragmentActivity implements OnMapReadyCallback
         dialog.show();
     }
 }
+
