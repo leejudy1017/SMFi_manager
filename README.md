@@ -1,4 +1,3 @@
 # HOW TO USE
 
-![Group 14](https://user-images.githubusercontent.com/70352603/124558303-6a3f3800-de75-11eb-927b-1840b12c5897.png)
-
+![Group 14 (1)](https://user-images.githubusercontent.com/70352603/124559004-2d277580-de76-11eb-99e9-bddd4f86163b.png)
