@@ -1,33 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<RelativeLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_width="300dp"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
 
     <TextView
-        android:id="@+id/textView_dialog_placeTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginLeft="22dp"
-        android:layout_marginStart="102dp"
-        android:layout_marginTop="26dp"
-        android:text="마커를 설정하시겠습니까 ?" />
+        android:id="@+id/textView_dialog_deleteText"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="30dp"
+        android:layout_weight=".2"
+        android:gravity="center"
+        android:textStyle="bold"
+        android:text="마커를 설정하시겠습니까 ?"  />
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="30dp"
+        android:layout_weight=".3">
 
-
-    <Button
+        <Button
         android:id="@+id/button_dialog_placeInfo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="137dp"
-        android:layout_marginTop="70dp"
-        android:layout_marginBottom="16dp"
-        android:backgroundTint="@color/blue"
         android:textColor="@color/white"
+        android:backgroundTint="@color/blue"
+        android:layout_marginLeft="80dp"
+        android:layout_marginRight="80dp"
+        android:layout_weight=".1"
         android:text="설정" />
 
-</RelativeLayout>
+
+    </LinearLayout>
+
+
+
+</LinearLayout>

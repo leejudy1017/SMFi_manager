@@ -1,83 +1,85 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<RelativeLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/textView_dialog_placeTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginLeft="30dp"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="26dp"
-        android:text="안테나 높이" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="30dp"
+        android:layout_weight=".3">
 
-    <EditText
-        android:id="@+id/editText_dialog_antennaHeight"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:gravity="center"
-        android:layout_marginLeft="37dp"
-        android:layout_marginStart="37dp"
-        android:layout_marginTop="16dp"
-        android:layout_toEndOf="@+id/textView_dialog_placeTitle"
-        android:layout_toRightOf="@+id/textView_dialog_placeTitle"
-        android:ems="10"
-        android:inputType="numberDecimal|numberSigned"
-        android:singleLine="true"
-        android:scrollbars="horizontal"
-        android:text="" />
+        <TextView
+            android:id="@+id/textView_dialog_placeTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="50dp"
+            android:textStyle="bold"
+            android:text="안테나 높이" />
 
-    <TextView
-        android:id="@+id/textView_dialog_placeText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginLeft="30dp"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="76dp"
-        android:text="안테나 각도" />
+        <EditText
+            android:id="@+id/editText_dialog_antennaHeight"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_marginLeft="22dp"
+            android:layout_marginRight="50dp"
+            android:ems="10"
+            android:inputType="numberDecimal|numberSigned"
+            android:singleLine="true"
+            android:scrollbars="horizontal"
+            android:text="" />
 
-    <EditText
-        android:id="@+id/editText_dialog_antennaAngle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_marginLeft="37dp"
-        android:layout_marginStart="37dp"
-        android:layout_marginTop="56dp"
-        android:gravity="center"
-        android:layout_toEndOf="@+id/textView_dialog_placeTitle"
-        android:layout_toRightOf="@+id/textView_dialog_placeTitle"
-        android:ems="10"
-        android:inputType="numberDecimal|numberSigned"
-        android:singleLine="true"
-        android:scrollbars="horizontal"
-        android:text="" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="20dp"
+        android:layout_weight=".3">
+
+        <TextView
+            android:id="@+id/textView_dialog_placeText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="50dp"
+            android:textStyle="bold"
+            android:text="안테나 각도" />
+
+        <EditText
+            android:id="@+id/editText_dialog_antennaAngle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="50dp"
+            android:layout_marginLeft="22dp"
+            android:gravity="center"
+            android:ems="10"
+            android:inputType="numberDecimal|numberSigned"
+            android:singleLine="true"
+            android:scrollbars="horizontal"
+            android:text="" />
+
+    </LinearLayout>
+
 
     <LinearLayout
         android:layout_width="wrap_content"
-        android:layout_height="30dp"
-        android:layout_marginTop="100dp"
-        android:layout_marginLeft="135dp"
+        android:layout_height="0dp"
+        android:layout_weight=".3"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="100dp"
+        android:layout_marginRight="30dp"
         android:orientation="horizontal">
 
         <Button
             android:id="@+id/x33"
-            android:layout_width="50dp"
-            android:layout_height="30dp"
-            android:paddingBottom="0dp"
-            android:paddingTop="0dp"
-            android:paddingLeft="0dp"
-            android:paddingRight="0dp"
+            android:layout_weight=".1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
             android:backgroundTint="@color/tumyeongsaeg"
             android:textColor="@color/darkgray"
             android:stateListAnimator="@null"
@@ -86,47 +88,65 @@
 
         <Button
             android:id="@+id/p29"
-            android:layout_width="70dp"
-            android:layout_height="30dp"
-            android:paddingBottom="0dp"
-            android:paddingTop="0dp"
-            android:paddingLeft="0dp"
-            android:paddingRight="0dp"
-            android:layout_marginLeft="10dp"
+            android:layout_weight=".1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:backgroundTint="@color/tumyeongsaeg"
             android:textColor="@color/darkgray"
+            android:layout_marginLeft="5dp"
             android:stateListAnimator="@null"
             android:textAllCaps="false"
-            android:text="P(29dBi)" />
+            android:text="P29" />
 
         <Button
             android:id="@+id/p30"
-            android:layout_width="70dp"
-            android:layout_height="30dp"
-            android:layout_marginLeft="10dp"
-            android:paddingBottom="0dp"
-            android:paddingTop="0dp"
-            android:paddingLeft="0dp"
-            android:paddingRight="0dp"
+            android:layout_weight=".1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:backgroundTint="@color/tumyeongsaeg"
             android:stateListAnimator="@null"
-            android:text="P(30dBi)"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:text="P30"
             android:textAllCaps="false"
             android:textColor="@color/darkgray" />
 
     </LinearLayout>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight=".4"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="30dp"
+        android:orientation="horizontal">
 
-    <Button
-        android:id="@+id/button_dialog_antennaBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="137dp"
-        android:layout_marginTop="140dp"
-        android:layout_marginBottom="16dp"
-        android:backgroundTint="@color/blue"
-        android:textColor="@color/white"
-        android:text="완료" />
+        <Button
+            android:id="@+id/button_dialog_antennaBtn"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight=".1"
+            android:backgroundTint="@color/blue"
+            android:layout_marginLeft="50dp"
+            android:layout_marginRight="20dp"
+            android:text="확인"
+            android:textColor="@color/white" />
+
+        <Button
+            android:id="@+id/button_delete_Btn"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight=".1"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="50dp"
+            android:backgroundTint="@color/blue"
+            android:text="취소"
+            android:textColor="@color/white" />
+
+    </LinearLayout>
 
 
-</RelativeLayout>
+
+
+
+</LinearLayout>

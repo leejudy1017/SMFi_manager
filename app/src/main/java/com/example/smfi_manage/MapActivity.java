@@ -104,7 +104,7 @@ public class MapActivity  extends FragmentActivity implements OnMapReadyCallback
 
     private FusedLocationProviderClient mFusedLocationClient;
     private LocationRequest locationRequest;
-    private Location location;
+    private Location  location;
 
 
     SearchView searchView;
@@ -141,7 +141,6 @@ public class MapActivity  extends FragmentActivity implements OnMapReadyCallback
                 .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
                 .setInterval(UPDATE_INTERVAL_MS)
                 .setFastestInterval(FASTEST_UPDATE_INTERVAL_MS);
-
 
         LocationSettingsRequest.Builder builder = new LocationSettingsRequest.Builder();
 
@@ -269,9 +268,9 @@ public class MapActivity  extends FragmentActivity implements OnMapReadyCallback
                         mOptions2.snippet(markerSnippet);
                         mOptions2.position(point);
 
-                        BitmapDrawable bitmapdraw = (BitmapDrawable)getResources().getDrawable(R.drawable.marker2);
+                        BitmapDrawable bitmapdraw = (BitmapDrawable)getResources().getDrawable(R.drawable.marker3);
                         Bitmap b = bitmapdraw.getBitmap();
-                        Bitmap smallMarker = Bitmap.createScaledBitmap(b,180,160,false);
+                        Bitmap smallMarker = Bitmap.createScaledBitmap(b,90,150,false);
                         mOptions2.icon(BitmapDescriptorFactory.fromBitmap(smallMarker));
 
                         // 마커 추가
@@ -357,23 +356,28 @@ public class MapActivity  extends FragmentActivity implements OnMapReadyCallback
                 button_submit.setOnClickListener(new View.OnClickListener() {
                     public void onClick(View v) {
 
-                         if (editText_latitude.getText().toString().equals("")) {
-                            Toast.makeText(MapActivity.this, "위도를 입력해주세요.", Toast.LENGTH_SHORT).show();
-                        } else if (editText_longitude.getText().toString().equals("")) {
-                            Toast.makeText(MapActivity.this, "경도를 입력해주세요.", Toast.LENGTH_SHORT).show();
+                         if (editText_latitude.getText().toString().equals("") || Double.parseDouble(editText_latitude.getText().toString())<-90 ||  Double.parseDouble(editText_latitude.getText().toString())>90 ) {
+                            Toast.makeText(MapActivity.this, "위도를 정확하게 입력해주세요. (-90 ~ +90)", Toast.LENGTH_SHORT).show();
+                        } else if (editText_longitude.getText().toString().equals("")|| Double.parseDouble(editText_longitude.getText().toString())<-180 ||  Double.parseDouble(editText_longitude.getText().toString())>180 ) {
+                            Toast.makeText(MapActivity.this, "경도를 입력해주세요. (-180 ~ +180)", Toast.LENGTH_SHORT).show();
                         } else {
 
                              String string_placeTitle = "알수없음";
 
                              try {
                                  List<Address> resultList = geocoder.getFromLocation(Double.parseDouble(editText_latitude.getText().toString()),Double.parseDouble(editText_longitude.getText().toString()),1);
-                                 string_placeTitle = resultList.get(0).getAddressLine(0);
+                                if(resultList !=null && resultList.size()>0){
+                                    string_placeTitle = resultList.get(0).getAddressLine(0);
+                                }
                              } catch (IOException e) {
                                  e.printStackTrace();
                                  Toast.makeText(MapActivity.this, "주소를 확인할 수 없습니다.", Toast.LENGTH_SHORT).show();
                              }
 
                             String markerSnippet = "위도: " + editText_latitude.getText().toString() + " 경도: " + editText_longitude.getText().toString();
+
+                             Log.i("search Location",markerSnippet);
+
                             //맵을 클릭시 현재 위치에 마커 추가
                             LatLng latLng = new LatLng(Double.parseDouble(editText_latitude.getText().toString()), Double.parseDouble(editText_longitude.getText().toString()));
                             MarkerOptions markerOptions = new MarkerOptions();
@@ -381,9 +385,9 @@ public class MapActivity  extends FragmentActivity implements OnMapReadyCallback
                             markerOptions.title(string_placeTitle);
                             markerOptions.snippet(markerSnippet);
 
-                             BitmapDrawable bitmapdraw = (BitmapDrawable)getResources().getDrawable(R.drawable.marker2);
+                             BitmapDrawable bitmapdraw = (BitmapDrawable)getResources().getDrawable(R.drawable.marker3);
                              Bitmap b = bitmapdraw.getBitmap();
-                             Bitmap smallMarker = Bitmap.createScaledBitmap(b,180,160,false);
+                             Bitmap smallMarker = Bitmap.createScaledBitmap(b,90,150,false);
                              markerOptions.icon(BitmapDescriptorFactory.fromBitmap(smallMarker));
 
                             mMap.addMarker(markerOptions);
@@ -568,7 +572,6 @@ public class MapActivity  extends FragmentActivity implements OnMapReadyCallback
 
         //맵 터치 이벤트
         mMap.setOnMapLongClickListener(latLng -> {
-
             AlertDialog.Builder builder = new AlertDialog.Builder(MapActivity.this);
             LayoutInflater inflater = getLayoutInflater();
             View view = inflater.inflate(R.layout.dialog_place_info, null);
@@ -596,9 +599,9 @@ public class MapActivity  extends FragmentActivity implements OnMapReadyCallback
                 markerOptions.title(string_placeTitle);
                 markerOptions.snippet(markerSnippet);
 
-                BitmapDrawable bitmapdraw = (BitmapDrawable)getResources().getDrawable(R.drawable.marker2);
+                BitmapDrawable bitmapdraw = (BitmapDrawable)getResources().getDrawable(R.drawable.marker3);
                 Bitmap b = bitmapdraw.getBitmap();
-                Bitmap smallMarker = Bitmap.createScaledBitmap(b,180,160,false);
+                Bitmap smallMarker = Bitmap.createScaledBitmap(b,90,150,false);
                 markerOptions.icon(BitmapDescriptorFactory.fromBitmap(smallMarker));
 
                 googleMap.addMarker(markerOptions);
@@ -896,8 +899,8 @@ public class MapActivity  extends FragmentActivity implements OnMapReadyCallback
         LayoutInflater inflater = getLayoutInflater();
         View view = inflater.inflate(R.layout.dialog_place_spot, null);
         builder.setView(view);
-        final Button cancelBtn = (Button) view.findViewById(R.id.button_dialog_cancelBtn);
-        final Button spotBtn = (Button) view.findViewById(R.id.button_dialog_spotBtn);
+        final Button cancelBtn = (Button) view.findViewById(R.id.button_dialog_deleteBtn);
+        final Button spotBtn = (Button) view.findViewById(R.id.button_dialog_Btn);
         final AlertDialog dialog = builder.create();
 
         cancelBtn.setOnClickListener(v -> dialog.dismiss());
@@ -906,7 +909,10 @@ public class MapActivity  extends FragmentActivity implements OnMapReadyCallback
             @Override
             public void onClick(View v) {
 
-                if(marker.getTitle().equals(spot1_title.getText().toString()) || marker.getTitle().equals(spot2_title.getText().toString())){
+                if(marker.getTitle().equals(spot1_title.getText().toString()) && marker.getPosition().equals(new LatLng(Double.parseDouble(spot1_latitude),Double.parseDouble(spot1_longitude)))){
+                    Toast.makeText(MapActivity.this,"이미 SPOT 으로 설정된 마커입니다.",Toast.LENGTH_SHORT).show();
+                }
+                else if(marker.getTitle().equals(spot2_title.getText().toString())&& marker.getPosition().equals(new LatLng(Double.parseDouble(spot2_latitude),Double.parseDouble(spot2_longitude)))){
                     Toast.makeText(MapActivity.this,"이미 SPOT 으로 설정된 마커입니다.",Toast.LENGTH_SHORT).show();
                 }
                 else{
@@ -996,6 +1002,7 @@ public class MapActivity  extends FragmentActivity implements OnMapReadyCallback
         View view = inflater.inflate(R.layout.dialog_place_antenna, null);
         builder.setView(view);
         final Button antenna = (Button) view.findViewById(R.id.button_dialog_antennaBtn);
+        final Button cancel = (Button) view.findViewById(R.id.button_delete_Btn);
         final EditText antennaHeight = (EditText) view.findViewById(R.id.editText_dialog_antennaHeight);
         final EditText antennaAngle = (EditText) view.findViewById(R.id.editText_dialog_antennaAngle);
         final Button x33 = (Button) view.findViewById(R.id.x33);
@@ -1006,6 +1013,10 @@ public class MapActivity  extends FragmentActivity implements OnMapReadyCallback
         x33.setOnClickListener(v -> antennaAngle.setText("17"));
         p29.setOnClickListener(v -> antennaAngle.setText("6.5"));
         p30.setOnClickListener(v -> antennaAngle.setText("5"));
+
+        cancel.setOnClickListener(v -> {
+            dialog.dismiss();
+        });
 
         antenna.setOnClickListener(v -> {
 

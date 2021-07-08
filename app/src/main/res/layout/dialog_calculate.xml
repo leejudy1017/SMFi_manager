@@ -1,79 +1,84 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<RelativeLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/textView_dialog_placeTitle2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginLeft="22dp"
-        android:layout_marginStart="42dp"
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_marginTop="30dp"
-        android:textStyle="bold"
-        android:text="거리        " />
+        android:layout_weight=".2">
 
-    <TextView
-        android:id="@+id/spot1_to_spot2_distance"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_marginLeft="37dp"
-        android:layout_marginStart="57dp"
-        android:gravity="center"
+        <TextView
+            android:id="@+id/textView_dialog_placeTitle2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="50dp"
+            android:textStyle="bold"
+            android:text="거리        " />
+
+        <TextView
+            android:id="@+id/spot1_to_spot2_distance"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_marginLeft="22dp"
+            android:layout_marginRight="50dp"
+            android:ems="10"
+            android:inputType="text"
+            android:singleLine="true"
+            android:scrollbars="horizontal"
+            android:text="" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_marginTop="30dp"
-        android:layout_toEndOf="@+id/textView_dialog_placeTitle"
-        android:layout_toRightOf="@+id/textView_dialog_placeTitle"
-        android:ems="10"
-        android:inputType="text"
-        android:singleLine="true"
-        android:scrollbars="horizontal"
-        android:text="" />
+        android:layout_weight=".2">
 
-    <TextView
-        android:id="@+id/textView_dialog_placeTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginLeft="22dp"
-        android:layout_marginStart="42dp"
-        android:layout_marginTop="70dp"
-        android:textStyle="bold"
-        android:text="반경 범위" />
+        <TextView
+            android:id="@+id/textView_dialog_placeTitle"
+            android:layout_width="wrap_content"
+            android:layout_marginLeft="50dp"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:text="반경 범위" />
 
-    <TextView
-        android:id="@+id/spot1_to_spot2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_marginLeft="37dp"
-        android:layout_marginStart="57dp"
+        <TextView
+            android:id="@+id/spot1_to_spot2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="50dp"
+            android:ems="10"
+            android:gravity="center"
+            android:layout_marginLeft="22dp"
+            android:inputType="text"
+            android:singleLine="true"
+            android:scrollbars="horizontal"
+            android:text="" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="30dp"
+        android:layout_marginBottom="30dp"
         android:gravity="center"
-        android:layout_marginTop="70dp"
-        android:layout_toEndOf="@+id/textView_dialog_placeTitle"
-        android:layout_toRightOf="@+id/textView_dialog_placeTitle"
-        android:ems="10"
-        android:inputType="text"
-        android:singleLine="true"
-        android:scrollbars="horizontal"
-        android:text="" />
-
+        android:layout_weight=".2">
     <Button
         android:id="@+id/submit_Btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="137dp"
-        android:layout_marginTop="110dp"
-        android:layout_marginBottom="16dp"
+        android:layout_width="80dp"
+        android:layout_height="match_parent"
         android:backgroundTint="@color/blue"
         android:textColor="@color/white"
         android:text="확인" />
 
-</RelativeLayout>
+    </LinearLayout>
+
+</LinearLayout>
