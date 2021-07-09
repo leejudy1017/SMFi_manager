@@ -59,6 +59,40 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_weight="1.5"
+        android:id="@+id/tp_info_layout"
+        android:scaleType="centerInside"
+        android:background="@color/white"
+        android:scrollbars="vertical"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/distance_tp1"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:text="TP 1 까지의 거리 (알수 없음)"
+            />
+
+        <TextView
+            android:id="@+id/distance_tp2"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:text="TP 2 까지의 거리 (알수 없음)"
+            />
+
+    </LinearLayout>
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
         android:layout_weight="4"
         android:id="@+id/layout"
         android:scaleType="centerInside"
@@ -77,8 +111,8 @@
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
-                android:text="SPOT 1"
-                android:textSize="16dp"
+                android:text="TP 1"
+                android:textSize="14dp"
                 android:id="@+id/spot1"
                 android:textAllCaps="false"
                 android:textColor="@color/darkgray"
@@ -94,8 +128,6 @@
                 android:layout_height="match_parent"
                 android:text=""
                 android:textSize="15dp"
-                android:minHeight="0dp"
-                android:minWidth="0dp"
                 android:gravity="center"
                 android:textAllCaps="false"
                 android:stateListAnimator="@null"
@@ -118,9 +150,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:id="@+id/spot2"
-                android:textSize="16dp"
+                android:textSize="14dp"
                 android:textColor="@color/darkgray"
-                android:text="SPOT 2"
+                android:text="TP 2"
                 android:stateListAnimator="@null"
                 android:onClick="onClick"
                 android:textAllCaps="false"
@@ -134,8 +166,6 @@
                 android:layout_height="match_parent"
                 android:text=""
                 android:textSize="15dp"
-                android:minHeight="0dp"
-                android:minWidth="0dp"
                 android:gravity="center"
                 android:textAllCaps="false"
                 android:stateListAnimator="@null"
@@ -158,12 +188,12 @@
         android:orientation="horizontal" >
 
         <Button
-            android:id="@+id/calculate"
+            android:id="@+id/error_range"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="cal1"
-            android:textSize="15dp"
+            android:text="오차범위"
+            android:textSize="13dp"
             android:textColor="@color/darkgray"
             android:paddingBottom="0dp"
             android:paddingTop="0dp"
@@ -176,12 +206,12 @@
             android:backgroundTint="@color/whitegray"/>
 
         <Button
-            android:id="@+id/calculate2"
+            android:id="@+id/antenna_angle"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="cal2"
-            android:textSize="15dp"
+            android:text="안테나"
+            android:textSize="13dp"
             android:textColor="@color/darkgray"
             android:gravity="center"
             android:textAllCaps="false"

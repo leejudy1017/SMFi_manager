@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="30dp"
+        android:layout_weight=".3">
+
+        <TextView
+            android:id="@+id/textView_dialog_placeTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="40dp"
+            android:textStyle="bold"
+            android:text="TP1 안테나 각도" />
+
+        <EditText
+            android:id="@+id/angle1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_marginLeft="22dp"
+            android:layout_marginRight="50dp"
+            android:ems="10"
+            android:inputType="numberDecimal|numberSigned"
+            android:singleLine="true"
+            android:scrollbars="horizontal"
+            android:text="" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight=".3"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="100dp"
+        android:layout_marginRight="30dp"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/x331"
+            android:layout_weight=".1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:backgroundTint="@color/tumyeongsaeg"
+            android:textColor="@color/darkgray"
+            android:stateListAnimator="@null"
+            android:textAllCaps="false"
+            android:text="x33" />
+
+        <Button
+            android:id="@+id/p291"
+            android:layout_weight=".1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/tumyeongsaeg"
+            android:textColor="@color/darkgray"
+            android:layout_marginLeft="5dp"
+            android:stateListAnimator="@null"
+            android:textAllCaps="false"
+            android:text="P29" />
+
+        <Button
+            android:id="@+id/p301"
+            android:layout_weight=".1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/tumyeongsaeg"
+            android:stateListAnimator="@null"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:text="P30"
+            android:textAllCaps="false"
+            android:textColor="@color/darkgray" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="20dp"
+        android:layout_weight=".3">
+
+        <TextView
+            android:id="@+id/textView_dialog_placeText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="40dp"
+            android:textStyle="bold"
+            android:text="TP2 안테나 각도" />
+
+        <EditText
+            android:id="@+id/angle2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="50dp"
+            android:layout_marginLeft="22dp"
+            android:gravity="center"
+            android:ems="10"
+            android:inputType="numberDecimal|numberSigned"
+            android:singleLine="true"
+            android:scrollbars="horizontal"
+            android:text="" />
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight=".3"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="100dp"
+        android:layout_marginRight="30dp"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/x332"
+            android:layout_weight=".1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:backgroundTint="@color/tumyeongsaeg"
+            android:textColor="@color/darkgray"
+            android:stateListAnimator="@null"
+            android:textAllCaps="false"
+            android:text="x33" />
+
+        <Button
+            android:id="@+id/p292"
+            android:layout_weight=".1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/tumyeongsaeg"
+            android:textColor="@color/darkgray"
+            android:layout_marginLeft="5dp"
+            android:stateListAnimator="@null"
+            android:textAllCaps="false"
+            android:text="P29" />
+
+        <Button
+            android:id="@+id/p302"
+            android:layout_weight=".1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/tumyeongsaeg"
+            android:stateListAnimator="@null"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:text="P30"
+            android:textAllCaps="false"
+            android:textColor="@color/darkgray" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight=".4"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="30dp"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/save_Btn"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight=".1"
+            android:backgroundTint="@color/blue"
+            android:layout_marginLeft="50dp"
+            android:layout_marginRight="20dp"
+            android:text="저장"
+            android:textColor="@color/white" />
+
+        <Button
+            android:id="@+id/button_delete_Btn"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight=".1"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="50dp"
+            android:backgroundTint="@color/blue"
+            android:text="취소"
+            android:textColor="@color/white" />
+
+    </LinearLayout>
+
+
+
+
+
+</LinearLayout>
