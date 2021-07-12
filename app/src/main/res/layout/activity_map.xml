@@ -54,6 +54,7 @@
             android:layout_marginBottom="15dp"
             android:layout_marginRight="15dp" />
 
+
     </FrameLayout>
 
     <LinearLayout
@@ -111,7 +112,7 @@
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
-                android:text="TP 1"
+                android:text="Site 1 설정"
                 android:textSize="14dp"
                 android:id="@+id/spot1"
                 android:textAllCaps="false"
@@ -152,7 +153,7 @@
                 android:id="@+id/spot2"
                 android:textSize="14dp"
                 android:textColor="@color/darkgray"
-                android:text="TP 2"
+                android:text="Site 2 설정"
                 android:stateListAnimator="@null"
                 android:onClick="onClick"
                 android:textAllCaps="false"
