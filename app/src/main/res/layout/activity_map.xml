@@ -74,7 +74,7 @@
             android:layout_weight="1"
             android:gravity="center"
             android:textStyle="bold"
-            android:text="TP 1 까지의 거리 (알수 없음)"
+            android:text="TP 1 을 설정해 주세요."
             />
 
         <TextView
@@ -84,7 +84,7 @@
             android:layout_weight="1"
             android:gravity="center"
             android:textStyle="bold"
-            android:text="TP 2 까지의 거리 (알수 없음)"
+            android:text="TP 2 을 설정해 주세요."
             />
 
     </LinearLayout>

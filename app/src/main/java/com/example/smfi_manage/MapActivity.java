@@ -91,6 +91,8 @@ public class MapActivity  extends FragmentActivity implements OnMapReadyCallback
     private Circle circle1 = null;
     private Circle circle2 = null;
 
+    private UiSettings mUiSettings;
+
     private View mLayout;  // Snackbar 사용하기 위해서는 View가 필요합니다.
     private static final String TAG = "googlemap_example";
     private static final int GPS_ENABLE_REQUEST_CODE = 2001;
@@ -110,6 +112,8 @@ public class MapActivity  extends FragmentActivity implements OnMapReadyCallback
     Double error_range ;
     Double spot1_atenna_angle ;
     Double spot2_atenna_angle ;
+    boolean alarm1;
+    boolean alarm2;
 
 
     private FusedLocationProviderClient mFusedLocationClient;
@@ -152,6 +156,9 @@ public class MapActivity  extends FragmentActivity implements OnMapReadyCallback
         error_range =0.0;
         spot1_atenna_angle =0.0;
         spot2_atenna_angle =0.0;
+
+        alarm1=true;
+        alarm2=true;
 
         //구글 맵 호출
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
@@ -254,9 +261,10 @@ public class MapActivity  extends FragmentActivity implements OnMapReadyCallback
                                 .title(string_placeTitle[0])
                                 .position(new LatLng(Double.parseDouble(finalLatitude), Double.parseDouble(finalLongitude)))
                                 .snippet(markerSnippet)
-                                .icon(BitmapDescriptorFactory.fromBitmap(smallMarker)));
+                                .icon(BitmapDescriptorFactory.fromBitmap(smallMarker))
+                                .alpha(0.7f));
 
-                                distance_tp1.setText("TP 1 까지의 거리: " + String.format("%.4f",distance(tp1Marker.getPosition().latitude, tp1Marker.getPosition().longitude, location.getLatitude(), location.getLongitude(), "meter")) + " m");
+                                distance_tp1.setText("TP 1 까지의 거리: " + (int)distance(tp1Marker.getPosition().latitude, tp1Marker.getPosition().longitude, location.getLatitude(), location.getLongitude(), "meter") + " m");
 
                                     dialog.dismiss();
 
@@ -275,7 +283,7 @@ public class MapActivity  extends FragmentActivity implements OnMapReadyCallback
                                     tp2Marker=null;
                                 }
 
-                                BitmapDrawable bitmap = (BitmapDrawable) getResources().getDrawable(R.drawable.marker4);
+                                BitmapDrawable bitmap = (BitmapDrawable) getResources().getDrawable(R.drawable.marker3);
                                 Bitmap b = bitmap.getBitmap();
                                 Bitmap smallMarker = Bitmap.createScaledBitmap(b,90,150,false);
 
@@ -284,9 +292,10 @@ public class MapActivity  extends FragmentActivity implements OnMapReadyCallback
                                         .title(string_placeTitle[0])
                                         .position(new LatLng(Double.parseDouble(finalLatitude), Double.parseDouble(finalLongitude)))
                                         .snippet(markerSnippet)
-                                        .icon(BitmapDescriptorFactory.fromBitmap(smallMarker)));
+                                        .icon(BitmapDescriptorFactory.fromBitmap(smallMarker))
+                                        .alpha(0.7f));
 
-                                distance_tp2.setText("TP 2 까지의 거리: " + String.format("%.4f",distance(tp2Marker.getPosition().latitude, tp2Marker.getPosition().longitude, location.getLatitude(), location.getLongitude(), "meter")) + " m");
+                                distance_tp2.setText("TP 2 까지의 거리: " + (int)distance(tp2Marker.getPosition().latitude, tp2Marker.getPosition().longitude, location.getLatitude(), location.getLongitude(), "meter") + " m");
 
                                 dialog.dismiss();
                             }
@@ -367,6 +376,8 @@ public class MapActivity  extends FragmentActivity implements OnMapReadyCallback
                     tp2Marker=null;
                 }
                 tracking=0;
+                alarm1=true;
+                alarm2=true;
                 Intent intent2 = new Intent(getApplication(), LoginActivity.class);
                 startActivity(intent2);
                 finish();
@@ -376,9 +387,11 @@ public class MapActivity  extends FragmentActivity implements OnMapReadyCallback
 
                 mMap.clear();
                 tracking=0;
+                alarm1=true;
+                alarm2=true;
 
-                distance_tp1.setText("TP 1 까지의 거리 (알수 없음)");
-                distance_tp2.setText("TP 2 까지의 거리 (알수 없음)");
+                distance_tp1.setText("TP 1 을 설정해 주세요.");
+                distance_tp2.setText("TP 2 을 설정해 주세요.");
 
                 spot1_title.setText("Site 1 설정");
                 spot1_detail.setText("");
@@ -507,7 +520,7 @@ public class MapActivity  extends FragmentActivity implements OnMapReadyCallback
                             if(site1Marker!=null) {site1Marker.remove();}
 
 
-                            BitmapDrawable bitmap = (BitmapDrawable) getResources().getDrawable(R.drawable.marker3);
+                            BitmapDrawable bitmap = (BitmapDrawable) getResources().getDrawable(R.drawable.marker4);
                             Bitmap b = bitmap.getBitmap();
                             Bitmap smallMarker = Bitmap.createScaledBitmap(b,90,150,false);
 
@@ -651,15 +664,14 @@ public class MapActivity  extends FragmentActivity implements OnMapReadyCallback
                 Bitmap b = bitmap.getBitmap();
                 Bitmap smallMarker = Bitmap.createScaledBitmap(b,90,150,false);
 
-
-
                     tp1Marker = mMap.addMarker(new MarkerOptions()
                     .title(string_placeTitle[0])
                     .position(new LatLng(Double.parseDouble(lat),Double.parseDouble(lon)))
                     .snippet(markerSnippet)
-                    .icon(BitmapDescriptorFactory.fromBitmap(smallMarker)));
+                    .icon(BitmapDescriptorFactory.fromBitmap(smallMarker))
+                            .alpha(0.7f));
 
-                    distance_tp1.setText("TP 1 까지의 거리: "+ String.format("%.4f",distance(tp1Marker.getPosition().latitude,tp1Marker.getPosition().longitude,location.getLatitude(),location.getLongitude(),"meter"))+" m");
+                    distance_tp1.setText("TP 1 까지의 거리: "+ (int)distance(tp1Marker.getPosition().latitude,tp1Marker.getPosition().longitude,location.getLatitude(),location.getLongitude(),"meter")+" (m)");
 
                     dialog.dismiss();
                 }
@@ -687,7 +699,7 @@ public class MapActivity  extends FragmentActivity implements OnMapReadyCallback
                     tp2Marker=null;
                 }
 
-                BitmapDrawable bitmap = (BitmapDrawable) getResources().getDrawable(R.drawable.marker4);
+                BitmapDrawable bitmap = (BitmapDrawable) getResources().getDrawable(R.drawable.marker3);
                 Bitmap b = bitmap.getBitmap();
                 Bitmap smallMarker = Bitmap.createScaledBitmap(b,90,150,false);
 
@@ -696,9 +708,10 @@ public class MapActivity  extends FragmentActivity implements OnMapReadyCallback
                         .title(string_placeTitle[0])
                         .position(new LatLng(Double.parseDouble(lat),Double.parseDouble(lon)))
                         .snippet(markerSnippet)
-                        .icon(BitmapDescriptorFactory.fromBitmap(smallMarker)));
+                        .icon(BitmapDescriptorFactory.fromBitmap(smallMarker))
+                        .alpha(0.7f));
 
-                distance_tp2.setText("TP 2 까지의 거리: "+ String.format("%.4f",distance(tp2Marker.getPosition().latitude,tp2Marker.getPosition().longitude,location.getLatitude(),location.getLongitude(),"meter"))+" m");
+                distance_tp2.setText("TP 2 까지의 거리: "+ (int)distance(tp2Marker.getPosition().latitude,tp2Marker.getPosition().longitude,location.getLatitude(),location.getLongitude(),"meter")+" (m)");
 
                 dialog.dismiss();
                 }
@@ -742,6 +755,9 @@ public class MapActivity  extends FragmentActivity implements OnMapReadyCallback
         // 구글 맵 객체를 불러온다.
         mMap = googleMap;
         geocoder = new Geocoder(this);
+
+        mUiSettings = mMap.getUiSettings();
+        mUiSettings.setCompassEnabled(true);
 
         //런타임 퍼미션 요청 대화상자나 GPS 활성 요청 대화상자 보이기전에
         //지도의 초기위치를 서울로 이동
@@ -810,9 +826,10 @@ public class MapActivity  extends FragmentActivity implements OnMapReadyCallback
                                 .title(string_placeTitle[0])
                                 .position(new LatLng(latLng.latitude,latLng.longitude))
                                 .snippet(markerSnippet)
-                                .icon(BitmapDescriptorFactory.fromBitmap(smallMarker)));
+                                .icon(BitmapDescriptorFactory.fromBitmap(smallMarker))
+                                .alpha(0.7f));
 
-                        distance_tp1.setText("TP 1 까지의 거리: " + String.format("%.4f",distance(tp1Marker.getPosition().latitude, tp1Marker.getPosition().longitude, location.getLatitude(), location.getLongitude(), "meter")) + " m");
+                        distance_tp1.setText("TP 1 까지의 거리: " + (int)distance(tp1Marker.getPosition().latitude, tp1Marker.getPosition().longitude, location.getLatitude(), location.getLongitude(), "meter") + " (m)");
 
                         dialog.dismiss();
                     }
@@ -838,7 +855,7 @@ public class MapActivity  extends FragmentActivity implements OnMapReadyCallback
                             tp2Marker.remove();
                         }
 
-                        BitmapDrawable bitmap = (BitmapDrawable) getResources().getDrawable(R.drawable.marker4);
+                        BitmapDrawable bitmap = (BitmapDrawable) getResources().getDrawable(R.drawable.marker3);
                         Bitmap b = bitmap.getBitmap();
                         Bitmap smallMarker = Bitmap.createScaledBitmap(b,90,150,false);
 
@@ -846,9 +863,10 @@ public class MapActivity  extends FragmentActivity implements OnMapReadyCallback
                                 .title(string_placeTitle[0])
                                 .position(new LatLng(latLng.latitude,latLng.longitude))
                                 .snippet(markerSnippet)
-                                .icon(BitmapDescriptorFactory.fromBitmap(smallMarker)));
+                                .icon(BitmapDescriptorFactory.fromBitmap(smallMarker))
+                                .alpha(0.7f));
 
-                        distance_tp2.setText("TP 2 까지의 거리: " + String.format("%.4f",distance(tp2Marker.getPosition().latitude, tp2Marker.getPosition().longitude, location.getLatitude(), location.getLongitude(), "meter")) + " m");
+                        distance_tp2.setText("TP 2 까지의 거리: " + (int)distance(tp2Marker.getPosition().latitude, tp2Marker.getPosition().longitude, location.getLatitude(), location.getLongitude(), "meter") + " (m)");
 
                         dialog.dismiss();
                     }
@@ -871,7 +889,7 @@ public class MapActivity  extends FragmentActivity implements OnMapReadyCallback
             deleteBtn.setOnClickListener(v -> {
                 if((site1Marker != null)&&(site1Marker.getPosition().latitude==marker.getPosition().latitude) && (site1Marker.getPosition().longitude==marker.getPosition().longitude)){
                     //site 1 지우기
-                    distance_tp1.setText("TP 1 까지의 거리 (알수 없음)");
+                    distance_tp1.setText("TP 1 을 설정해 주세요.");
                     spot1_title.setText("Site 1 설정");
                     spot1_detail.setText("");
                     site1Marker=null;
@@ -883,7 +901,7 @@ public class MapActivity  extends FragmentActivity implements OnMapReadyCallback
                 }
                 if((site2Marker != null)&&(site2Marker.getPosition().latitude==marker.getPosition().latitude) && (site2Marker.getPosition().longitude==marker.getPosition().longitude)){
                     //site 2 지우기
-                    distance_tp2.setText("TP 2 까지의 거리 (알수 없음)");
+                    distance_tp2.setText("TP 2 을 설정해 주세요.");
                     spot2_title.setText("Site 2 설정");
                     spot2_detail.setText("");
                     site2Marker=null;
@@ -896,12 +914,12 @@ public class MapActivity  extends FragmentActivity implements OnMapReadyCallback
 
                 if((tp1Marker != null)&&tp1Marker.getPosition().latitude==marker.getPosition().latitude && tp1Marker.getPosition().longitude==marker.getPosition().longitude){
                     tp1Marker=null;
-                    distance_tp1.setText("TP 1 까지의 거리 (알수 없음)");
+                    distance_tp1.setText("TP 1 을 설정해 주세요.");
                     circle1.remove();
                 }
                 if((tp2Marker != null)&&tp2Marker.getPosition().latitude==marker.getPosition().latitude && tp2Marker.getPosition().longitude==marker.getPosition().longitude){
                     tp2Marker=null;
-                    distance_tp2.setText("TP 2 까지의 거리 (알수 없음)");
+                    distance_tp2.setText("TP 2 을 설정해 주세요.");
                     circle2.remove();
                 }
 
@@ -945,8 +963,12 @@ public class MapActivity  extends FragmentActivity implements OnMapReadyCallback
                             .fillColor(Color.parseColor("#880000ff"));
                     circle1 = mMap.addCircle(circleOptions);
 
+                    double temp_distance=distance(tp1Marker.getPosition().latitude,tp1Marker.getPosition().longitude,location.getLatitude(),location.getLongitude(),"meter");
+                    distance_tp1.setText("TP 1 까지의 거리 : "+(int)temp_distance+" (m)");
+
                     //alarm
-                    if(distance(tp1Marker.getPosition().latitude,tp1Marker.getPosition().longitude,location.getLatitude(),location.getLongitude(),"meter")==error_range){
+                    if(alarm1==true&&temp_distance<=error_range){
+                        alarm1=false;
                         AlertDialog.Builder builder = new AlertDialog.Builder(MapActivity.this);
                         LayoutInflater inflater = getLayoutInflater();
                         View view = inflater.inflate(R.layout.dialog_alarm, null);
@@ -954,7 +976,7 @@ public class MapActivity  extends FragmentActivity implements OnMapReadyCallback
                         final TextView text = (TextView) view.findViewById(R.id.dialogText);
                         final Button okBtn = (Button) view.findViewById(R.id.save_Btn);
                         final AlertDialog dialog = builder.create();
-                        text.setText("TP 1 의"+ error_range+"m 내에 도착하였습니다.");
+                        text.setText("TP 1 의"+ error_range+"m 내에 도착하였습니다.\n Site 1 를 설정해주세요.");
                         okBtn.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
@@ -962,6 +984,9 @@ public class MapActivity  extends FragmentActivity implements OnMapReadyCallback
                             }
                         });
                         dialog.show();
+                    }
+                    else if(temp_distance>error_range){
+                        alarm1=true;
                     }
                 }
                 if(tp2Marker!=null && site2Marker==null){
@@ -972,8 +997,12 @@ public class MapActivity  extends FragmentActivity implements OnMapReadyCallback
                             .fillColor(Color.parseColor("#880000ff"));
                     circle2 = mMap.addCircle(circleOptions);
 
+                    double temp_distance=distance(tp2Marker.getPosition().latitude,tp2Marker.getPosition().longitude,location.getLatitude(),location.getLongitude(),"meter");
+                    distance_tp2.setText("TP 2 까지의 거리 : "+(int)temp_distance+" (m)");
+
                     //alarm
-                    if(distance(tp2Marker.getPosition().latitude,tp2Marker.getPosition().longitude,location.getLatitude(),location.getLongitude(),"meter")==error_range){
+                    if(alarm2==true&&temp_distance<=error_range){
+                        alarm2=false;
                         AlertDialog.Builder builder = new AlertDialog.Builder(MapActivity.this);
                         LayoutInflater inflater = getLayoutInflater();
                         View view = inflater.inflate(R.layout.dialog_alarm, null);
@@ -981,7 +1010,7 @@ public class MapActivity  extends FragmentActivity implements OnMapReadyCallback
                         final TextView text = (TextView) view.findViewById(R.id.dialogText);
                         final Button okBtn = (Button) view.findViewById(R.id.save_Btn);
                         final AlertDialog dialog = builder.create();
-                        text.setText("TP 2 의"+ error_range+"m 내에 도착하였습니다.");
+                        text.setText("TP 2 의"+ error_range+"m 내에 도착하였습니다.\n Site 2 를 설정해주세요.");
                         okBtn.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
@@ -990,14 +1019,17 @@ public class MapActivity  extends FragmentActivity implements OnMapReadyCallback
                         });
                         dialog.show();
                     }
+                    else if(temp_distance>error_range){
+                        alarm2=true;
+                    }
                 }
 
                 //거리,빔아크
                 if(site2Marker !=null && site1Marker !=null){
                     double distance = distance(site1Marker.getPosition().latitude,site1Marker.getPosition().longitude,site2Marker.getPosition().latitude,site2Marker.getPosition().longitude,"meter");
                     distance = Double.parseDouble(String.format("%.4f",distance));
-                    spot1_detail.setText("경도: "+String.format("%.4f",site1Marker.getPosition().latitude)+"\n위도: "+String.format("%.4f",site1Marker.getPosition().longitude)+"\n고도: "+"알수없음"+"\n거리: "+distance+"\n빔아크: "+Math.PI/180*distance*spot1_atenna_angle);
-                    spot2_detail.setText("경도: "+String.format("%.4f",site2Marker.getPosition().latitude)+"\n위도: "+String.format("%.4f",site2Marker.getPosition().longitude)+"\n고도: "+"알수없음"+"\n거리: "+distance+"\n빔아크: "+Math.PI/180*distance*spot2_atenna_angle);
+                    spot1_detail.setText("경도: "+String.format("%.4f",site1Marker.getPosition().latitude)+"\n위도: "+String.format("%.4f",site1Marker.getPosition().longitude)+"\n고도: "+"알수없음"+"\n거리: "+distance+"\n빔아크: "+String.format("%.4f",Math.PI/180*distance*spot1_atenna_angle));
+                    spot2_detail.setText("경도: "+String.format("%.4f",site2Marker.getPosition().latitude)+"\n위도: "+String.format("%.4f",site2Marker.getPosition().longitude)+"\n고도: "+"알수없음"+"\n거리: "+distance+"\n빔아크: "+String.format("%.4f",Math.PI/180*distance*spot2_atenna_angle));
                 }
 
 
