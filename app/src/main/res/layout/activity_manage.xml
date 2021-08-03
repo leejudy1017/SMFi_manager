@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/layout_main"
+    android:orientation="vertical"
+    android:background="@color/white"
+    tools:context=".ManageActivity" >
+
+    <FrameLayout
+        android:id="@+id/fram_map"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="9" >
+        <fragment
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/map"
+            tools:context=".MapsActivity"
+            android:name="com.google.android.gms.maps.SupportMapFragment" />
+    </FrameLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.8"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/clusterBtn"
+            android:layout_width="125dp"
+            android:layout_height="match_parent"
+            android:backgroundTint="@color/blue"
+            android:textSize="12dp"
+            android:padding="0dp"
+            android:onClick="onClick"
+            android:textColor="@color/white"
+            android:text="Cluster list"
+            ></Button>
+        <Button
+            android:id="@+id/subsystemBtn"
+            android:layout_width="130dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="8dp"
+            android:backgroundTint="@color/blue"
+            android:textSize="12dp"
+            android:padding="0dp"
+            android:onClick="onClick"
+            android:textColor="@color/white"
+            android:text="Subsystem list"
+            ></Button>
+        <Button
+            android:id="@+id/popBtn"
+            android:layout_width="125dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="8dp"
+            android:backgroundTint="@color/blue"
+            android:textSize="12dp"
+            android:padding="0dp"
+            android:onClick="onClick"
+            android:textColor="@color/white"
+            android:text="POP list"
+            ></Button>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="10dp"
+        android:layout_weight="2"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:textSize="18dp"
+            android:layout_marginBottom="15dp"
+            android:text ="CurrentPosition"/>
+
+        <TextView
+            android:layout_gravity="center"
+            android:id="@+id/current_info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:text=""
+            ></TextView>
+
+    </LinearLayout>
+
+</LinearLayout>

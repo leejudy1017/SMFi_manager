@@ -49,6 +49,8 @@
         </activity>
         <activity android:name=".JoinActivity"></activity>
         <activity android:name=".MapActivity" android:windowSoftInputMode="adjustPan"></activity>
+        <activity android:name=".CategoryActivity" android:windowSoftInputMode="adjustPan"></activity>
+        <activity android:name=".ManageActivity" android:windowSoftInputMode="adjustPan"></activity>
     </application>
 
 </manifest>
