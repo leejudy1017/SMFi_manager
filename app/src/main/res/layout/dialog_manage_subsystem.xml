@@ -23,6 +23,12 @@
             android:textStyle="bold"
             android:text="Subsystem list in radios 20 Km" />
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:layout_margin="20dp"
+            android:layout_height="200dp"/>
+
     </LinearLayout>
 
     <LinearLayout
